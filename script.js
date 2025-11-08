@@ -14,8 +14,16 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             
             // Cerrar menú móvil si está abierto
             const navbarCollapse = document.querySelector('.navbar-collapse');
-            if (navbarCollapse.classList.contains('show')) {
-                bootstrap.Collapse.getInstance(navbarCollapse).hide();
+            const navbarContainer = document.querySelector('.navbar-container');
+            if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+                const collapseInstance = bootstrap.Collapse.getInstance(navbarCollapse);
+                if (collapseInstance) {
+                    collapseInstance.hide();
+                }
+            }
+            // Remover clase menu-open
+            if (navbarContainer) {
+                navbarContainer.classList.remove('menu-open');
             }
         }
     });
@@ -726,6 +734,22 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Aplicar idioma guardado al cargar la página
     changeLanguage(currentLanguage);
+    
+    // ========================================
+    // Navbar Collapse Animation Handler
+    // ========================================
+    const navbarCollapse = document.getElementById('navbarNav');
+    const navbarContainer = document.querySelector('.navbar-container');
+    
+    if (navbarCollapse && navbarContainer) {
+        navbarCollapse.addEventListener('show.bs.collapse', () => {
+            navbarContainer.classList.add('menu-open');
+        });
+        
+        navbarCollapse.addEventListener('hide.bs.collapse', () => {
+            navbarContainer.classList.remove('menu-open');
+        });
+    }
 });
 
 console.log('Roypi - Página cargada exitosamente');
