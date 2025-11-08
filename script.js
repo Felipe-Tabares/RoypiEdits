@@ -710,7 +710,7 @@ function changeLanguage(lang) {
         }
     });
     
-    // Actualizar botones de idioma
+    // Actualizar botones de idioma (tanto desktop como móvil)
     document.querySelectorAll('.btn-language').forEach(btn => {
         btn.classList.remove('active');
         if (btn.getAttribute('data-lang') === lang) {
@@ -723,13 +723,25 @@ function changeLanguage(lang) {
 document.addEventListener('DOMContentLoaded', () => {
     const btnLangEs = document.getElementById('btn-lang-es');
     const btnLangEn = document.getElementById('btn-lang-en');
+    const btnLangEsMobile = document.getElementById('btn-lang-es-mobile');
+    const btnLangEnMobile = document.getElementById('btn-lang-en-mobile');
     
+    // Desktop buttons
     if (btnLangEs) {
         btnLangEs.addEventListener('click', () => changeLanguage('es'));
     }
     
     if (btnLangEn) {
         btnLangEn.addEventListener('click', () => changeLanguage('en'));
+    }
+    
+    // Mobile buttons
+    if (btnLangEsMobile) {
+        btnLangEsMobile.addEventListener('click', () => changeLanguage('es'));
+    }
+    
+    if (btnLangEnMobile) {
+        btnLangEnMobile.addEventListener('click', () => changeLanguage('en'));
     }
     
     // Aplicar idioma guardado al cargar la página

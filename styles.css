@@ -379,7 +379,16 @@ h1, h2, h3, h4, h5, h6 {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 217, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
-/* Ocultar close button en desktop */
+/* Language Switcher - Desktop */
+.language-switcher-desktop {
+    display: flex;
+}
+
+.language-switcher-mobile {
+    display: none;
+}
+
+/* Ocultar close button y mobile language switcher en desktop */
 @media (min-width: 992px) {
     .navbar-close-btn {
         display: none !important;
@@ -387,6 +396,14 @@ h1, h2, h3, h4, h5, h6 {
     
     .language-switcher-container {
         display: none !important;
+    }
+    
+    .language-switcher-mobile {
+        display: none !important;
+    }
+    
+    .language-switcher-desktop {
+        display: flex !important;
     }
 }
 
@@ -1775,7 +1792,8 @@ h1, h2, h3, h4, h5, h6 {
     
     /* Ocultar nav items y language switcher en móvil cuando collapse está cerrado */
     .navbar-collapse:not(.show) .navbar-nav,
-    .navbar-collapse:not(.show) .language-switcher-container {
+    .navbar-collapse:not(.show) .language-switcher-container,
+    .navbar-collapse:not(.show) .language-switcher-desktop {
         display: none !important;
     }
     
@@ -1785,6 +1803,16 @@ h1, h2, h3, h4, h5, h6 {
     }
     
     .navbar-collapse.show .language-switcher-container {
+        display: flex !important;
+    }
+    
+    /* Ocultar desktop language switcher en móvil */
+    .language-switcher-desktop {
+        display: none !important;
+    }
+    
+    /* Mostrar mobile language switcher */
+    .language-switcher-mobile {
         display: flex !important;
     }
     
