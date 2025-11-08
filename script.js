@@ -740,14 +740,30 @@ document.addEventListener('DOMContentLoaded', () => {
     // ========================================
     const navbarCollapse = document.getElementById('navbarNav');
     const navbarContainer = document.querySelector('.navbar-container');
+    const navbarToggler = document.querySelector('.navbar-toggler');
+    const navbarCloseBtn = document.querySelector('.navbar-close-btn');
     
     if (navbarCollapse && navbarContainer) {
         navbarCollapse.addEventListener('show.bs.collapse', () => {
             navbarContainer.classList.add('menu-open');
+            // Actualizar aria-expanded
+            if (navbarToggler) {
+                navbarToggler.setAttribute('aria-expanded', 'true');
+            }
+            if (navbarCloseBtn) {
+                navbarCloseBtn.setAttribute('aria-expanded', 'true');
+            }
         });
         
         navbarCollapse.addEventListener('hide.bs.collapse', () => {
             navbarContainer.classList.remove('menu-open');
+            // Actualizar aria-expanded
+            if (navbarToggler) {
+                navbarToggler.setAttribute('aria-expanded', 'false');
+            }
+            if (navbarCloseBtn) {
+                navbarCloseBtn.setAttribute('aria-expanded', 'false');
+            }
         });
     }
 });
