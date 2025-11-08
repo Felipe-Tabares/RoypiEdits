@@ -250,6 +250,19 @@ h1, h2, h3, h4, h5, h6 {
     .navbar-collapse {
         display: flex !important;
     }
+    
+    /* Asegurar que solo el desktop switcher sea visible */
+    .language-switcher-desktop {
+        display: flex !important;
+    }
+    
+    .language-switcher-mobile {
+        display: none !important;
+    }
+    
+    .language-switcher-container {
+        display: none !important;
+    }
 }
 
 .navbar-brand {
@@ -379,9 +392,9 @@ h1, h2, h3, h4, h5, h6 {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 217, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
-/* Language Switcher - Desktop */
+/* Language Switcher - Desktop (oculto por defecto, se mostrará en desktop) */
 .language-switcher-desktop {
-    display: flex;
+    display: none;
 }
 
 .language-switcher-mobile {
@@ -394,15 +407,23 @@ h1, h2, h3, h4, h5, h6 {
         display: none !important;
     }
     
+    /* Ocultar completamente el contenedor móvil */
     .language-switcher-container {
         display: none !important;
     }
     
+    /* Ocultar el switcher móvil dentro del contenedor */
     .language-switcher-mobile {
         display: none !important;
     }
     
+    /* Mostrar solo el switcher de desktop */
     .language-switcher-desktop {
+        display: flex !important;
+    }
+    
+    /* Asegurar que el navbar-collapse muestre el desktop switcher */
+    .navbar-collapse .language-switcher-desktop {
         display: flex !important;
     }
 }
@@ -1792,8 +1813,7 @@ h1, h2, h3, h4, h5, h6 {
     
     /* Ocultar nav items y language switcher en móvil cuando collapse está cerrado */
     .navbar-collapse:not(.show) .navbar-nav,
-    .navbar-collapse:not(.show) .language-switcher-container,
-    .navbar-collapse:not(.show) .language-switcher-desktop {
+    .navbar-collapse:not(.show) .language-switcher-container {
         display: none !important;
     }
     
@@ -1806,14 +1826,18 @@ h1, h2, h3, h4, h5, h6 {
         display: flex !important;
     }
     
-    /* Ocultar desktop language switcher en móvil */
+    /* Ocultar desktop language switcher en móvil - SIEMPRE */
     .language-switcher-desktop {
         display: none !important;
     }
     
-    /* Mostrar mobile language switcher */
-    .language-switcher-mobile {
+    /* Mostrar mobile language switcher solo cuando el menú está abierto */
+    .navbar-collapse.show .language-switcher-mobile {
         display: flex !important;
+    }
+    
+    .navbar-collapse:not(.show) .language-switcher-mobile {
+        display: none !important;
     }
     
     .navbar-collapse {
