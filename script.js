@@ -1,4 +1,43 @@
 // ========================================
+// Hero Background Video
+// ========================================
+document.addEventListener('DOMContentLoaded', () => {
+    const heroVideo = document.querySelector('.hero-background-video');
+    
+    if (heroVideo) {
+        // Asegurar que el video se reproduzca
+        heroVideo.addEventListener('loadeddata', () => {
+            heroVideo.play().catch(err => {
+                console.log('Autoplay bloqueado para video de portada, se reproducirá al interactuar');
+            });
+        });
+        
+        // Reproducir cuando el usuario interactúe
+        const playVideoOnInteraction = () => {
+            if (heroVideo.paused) {
+                heroVideo.play().catch(() => {});
+            }
+        };
+        
+        document.addEventListener('click', playVideoOnInteraction, { once: true });
+        document.addEventListener('touchstart', playVideoOnInteraction, { once: true });
+        
+        // Manejar errores
+        heroVideo.addEventListener('error', (e) => {
+            console.error('Error al cargar video de portada:', e);
+            // Si el video falla, mantener el fondo oscuro
+            const heroSection = heroVideo.closest('.hero-section');
+            if (heroSection) {
+                heroSection.style.background = '#000';
+            }
+        });
+        
+        // Asegurar que el video esté cargando
+        heroVideo.load();
+    }
+});
+
+// ========================================
 // Smooth Scroll para enlaces de navegación
 // ========================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
