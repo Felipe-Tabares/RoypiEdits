@@ -336,6 +336,296 @@ if (videoModalElement) {
 }
 
 // ========================================
+// Portfolio Reels Modal
+// ========================================
+// Si quieres usar videos de YouTube, proporciona los links aquí
+// Formato: { video: 'url-del-video.mp4 o youtube-id', type: 'local' o 'youtube', thumbnail: 'url-thumbnail-opcional' }
+const reelVideos = [
+    { video: 'img/tiktok/vala 2.mp4', type: 'local' },
+    { video: 'img/tiktok/evelin.mp4', type: 'local' },
+    { video: 'img/tiktok/elita.mp4', type: 'local' },
+    { video: 'img/tiktok/cumbi.mp4', type: 'local' },
+    { video: 'img/tiktok/andylive.mp4', type: 'local' },
+    { video: 'img/tiktok/alemizzle.mp4', type: 'local' }
+];
+
+// Función para generar thumbnail desde video MP4
+function generateThumbnailFromVideo(videoSrc, imgElement, index) {
+    return new Promise((resolve, reject) => {
+        const video = document.createElement('video');
+        video.src = videoSrc;
+        video.muted = true;
+        video.playsInline = true;
+        video.preload = 'metadata';
+        // No usar crossOrigin para archivos locales
+        
+        // Ocultar el video completamente pero mantenerlo en el DOM
+        video.style.position = 'absolute';
+        video.style.top = '-9999px';
+        video.style.left = '-9999px';
+        video.style.width = '320px';
+        video.style.height = '568px';
+        video.style.opacity = '0';
+        video.style.pointerEvents = 'none';
+        video.style.zIndex = '-1';
+        
+        let thumbnailGenerated = false;
+        let seekAttempts = 0;
+        const maxSeekAttempts = 3;
+        
+        const generateThumb = () => {
+            if (thumbnailGenerated) return;
+            
+            seekAttempts++;
+            if (seekAttempts > maxSeekAttempts) {
+                thumbnailGenerated = true;
+                reject(new Error('Max seek attempts reached'));
+                return;
+            }
+            
+            try {
+                // Intentar ir a diferentes puntos del video para capturar un frame
+                const seekTime = seekAttempts * 0.5; // 0.5s, 1s, 1.5s
+                video.currentTime = seekTime;
+            } catch (e) {
+                console.warn('Error al establecer currentTime:', e);
+                if (seekAttempts >= maxSeekAttempts) {
+                    thumbnailGenerated = true;
+                    reject(e);
+                }
+            }
+        };
+        
+        video.addEventListener('loadedmetadata', () => {
+            // Una vez que tenemos los metadatos, intentar capturar frame
+            if (video.videoWidth > 0 && video.videoHeight > 0) {
+                generateThumb();
+            }
+        }, { once: true });
+        
+        video.addEventListener('loadeddata', () => {
+            // Si los datos están cargados, intentar capturar
+            if (!thumbnailGenerated && video.videoWidth > 0) {
+                generateThumb();
+            }
+        }, { once: true });
+        
+        video.addEventListener('canplay', () => {
+            // Cuando el video puede reproducirse, intentar capturar
+            if (!thumbnailGenerated && video.videoWidth > 0) {
+                generateThumb();
+            }
+        }, { once: true });
+        
+        video.addEventListener('seeked', () => {
+            if (thumbnailGenerated) return;
+            thumbnailGenerated = true;
+            
+            try {
+                if (video.videoWidth === 0 || video.videoHeight === 0) {
+                    throw new Error('Video dimensions are zero');
+                }
+                
+                const canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                const ctx = canvas.getContext('2d');
+                
+                // Dibujar el frame actual
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                
+                // Convertir a imagen
+                const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+                imgElement.style.backgroundImage = `url(${dataUrl})`;
+                imgElement.style.backgroundSize = 'cover';
+                imgElement.style.backgroundPosition = 'center';
+                imgElement.style.backgroundColor = 'transparent';
+                
+                resolve(dataUrl);
+            } catch (e) {
+                console.warn(`Error al generar thumbnail para reel ${index}:`, e);
+                reject(e);
+            } finally {
+                // Limpiar después de un delay
+                setTimeout(() => {
+                    try {
+                        video.pause();
+                        video.src = '';
+                        video.load();
+                        if (video.parentNode) {
+                            video.remove();
+                        }
+                    } catch (cleanupError) {
+                        // Ignorar errores de limpieza
+                    }
+                }, 2000);
+            }
+        }, { once: true });
+        
+        video.addEventListener('error', (e) => {
+            console.warn(`Error al cargar video para thumbnail ${index}:`, videoSrc, e);
+            thumbnailGenerated = true;
+            reject(e);
+            setTimeout(() => {
+                if (video.parentNode) {
+                    video.remove();
+                }
+            }, 100);
+        });
+        
+        // Agregar el video al DOM para que pueda cargar
+        document.body.appendChild(video);
+        
+        // Forzar la carga
+        video.load();
+        
+        // Timeout de seguridad (aumentado a 15 segundos)
+        setTimeout(() => {
+            if (!thumbnailGenerated) {
+                thumbnailGenerated = true;
+                console.warn(`Timeout generando thumbnail para reel ${index}`);
+                try {
+                    video.pause();
+                    video.src = '';
+                    if (video.parentNode) {
+                        video.remove();
+                    }
+                } catch (cleanupError) {
+                    // Ignorar
+                }
+                reject(new Error('Timeout'));
+            }
+        }, 15000);
+    });
+}
+
+// Aplicar previews a las cards de reels usando videos directamente
+document.addEventListener('DOMContentLoaded', () => {
+    // Inicializar videos de preview (autoplay en loop, muted)
+    const previewVideos = document.querySelectorAll('#portfolio-reels .reel-preview-video');
+    
+    // Función compartida para reproducir todos los videos cuando el usuario interactúe
+    const playAllVideosOnInteraction = () => {
+        previewVideos.forEach(v => {
+            if (v.paused && v.readyState >= 2) {
+                v.play().catch(() => {});
+            }
+        });
+    };
+    
+    // Agregar listeners globales una sola vez
+    document.addEventListener('click', playAllVideosOnInteraction, { once: true });
+    document.addEventListener('touchstart', playAllVideosOnInteraction, { once: true });
+    
+    previewVideos.forEach((video, index) => {
+        // Función para intentar reproducir el video
+        const tryPlay = () => {
+            if (video.readyState >= 2) { // HAVE_CURRENT_DATA o superior
+                video.play().then(() => {
+                    // Video reproducido exitosamente
+                }).catch(() => {
+                    // Autoplay bloqueado - se reproducirá cuando el usuario interactúe
+                });
+            }
+        };
+        
+        // Intentar reproducir cuando los datos estén listos
+        video.addEventListener('loadeddata', tryPlay, { once: true });
+        
+        // También intentar cuando pueda reproducirse
+        video.addEventListener('canplay', () => {
+            if (video.paused) {
+                tryPlay();
+            }
+        }, { once: true });
+        
+        // Cuando el video termine, reiniciarlo (loop)
+        video.addEventListener('ended', () => {
+            video.currentTime = 0;
+            video.play().catch(() => {
+                // Ignorar errores de autoplay
+            });
+        });
+        
+        // Manejar errores de carga
+        video.addEventListener('error', (e) => {
+            const source = video.querySelector('source');
+            console.error(`Error al cargar video preview ${index}:`, source ? source.src : 'unknown', e);
+            // Mostrar un placeholder de error
+            const container = video.parentElement;
+            if (container) {
+                container.style.backgroundColor = 'rgba(26, 35, 50, 0.9)';
+            }
+        });
+        
+        // Reproducir cuando el mouse entre en la card
+        const card = video.closest('.portfolio-card-reel');
+        if (card) {
+            card.addEventListener('mouseenter', () => {
+                if (video.paused && video.readyState >= 2) {
+                    video.play().catch(() => {});
+                }
+            });
+        }
+        
+        // Asegurar que el video esté cargando
+        video.load();
+    });
+    
+    // Event listeners para las cards de reels (abrir modal)
+    const reelCards = document.querySelectorAll('#portfolio-reels .portfolio-card');
+    const reelModalElement = document.getElementById('reelModal');
+    const reelVideo = document.getElementById('reelVideo');
+    
+    if (reelModalElement && reelVideo) {
+        const reelModal = new bootstrap.Modal(reelModalElement);
+        
+        reelCards.forEach((card, index) => {
+            card.addEventListener('click', () => {
+                if (reelVideos[index]) {
+                    const reelData = reelVideos[index];
+                    
+                    if (reelData.type === 'local') {
+                        // Detener el preview video
+                        const previewVideo = card.querySelector('.reel-preview-video');
+                        if (previewVideo) {
+                            previewVideo.pause();
+                        }
+                        
+                        // Reproducir video completo en el modal
+                        reelVideo.innerHTML = `<source src="${reelData.video}" type="video/mp4">`;
+                        reelVideo.load();
+                        reelVideo.play().catch(err => {
+                            console.warn('Error al reproducir video en modal:', err);
+                        });
+                        reelModal.show();
+                    } else if (reelData.type === 'youtube') {
+                        // Para YouTube, redirigir
+                        window.open(`https://www.youtube.com/watch?v=${reelData.video}`, '_blank');
+                    }
+                }
+            });
+        });
+        
+        // Limpiar el video cuando se cierre el modal
+        reelModalElement.addEventListener('hidden.bs.modal', () => {
+            if (reelVideo) {
+                reelVideo.pause();
+                reelVideo.currentTime = 0;
+                reelVideo.innerHTML = '';
+            }
+            
+            // Reanudar los previews cuando se cierra el modal
+            previewVideos.forEach(video => {
+                video.play().catch(err => {
+                    // Ignorar errores
+                });
+            });
+        });
+    }
+});
+
+// ========================================
 // Portfolio Thumbnail Modal
 // ========================================
 const thumbnailCards = document.querySelectorAll('#portfolio-miniaturas .portfolio-card');
@@ -693,6 +983,9 @@ const translations = {
             videos: {
                 title: "Videos"
             },
+            reels: {
+                title: "Reels"
+            },
             miniaturas: {
                 title: "Miniaturas"
             },
@@ -701,11 +994,13 @@ const translations = {
                 advanced3d: "3D Avanzado",
                 karmaland: "KARMALAND",
                 multicam: "Multicámaras"
-            },
-            modal: {
-                videoTitle: "Reproducir Video",
-                thumbnailTitle: "Miniatura Completa"
             }
+        },
+        modal: {
+            videoTitle: "Reproducir Video",
+            reelTitle: "Reproducir Reel",
+            thumbnailTitle: "Miniatura Completa",
+            videoNotSupported: "Tu navegador no soporta la reproducción de videos."
         },
         clients: {
             title: "Mis Clientes",
@@ -811,6 +1106,9 @@ const translations = {
             videos: {
                 title: "Videos"
             },
+            reels: {
+                title: "Reels"
+            },
             miniaturas: {
                 title: "Thumbnails"
             },
@@ -819,11 +1117,13 @@ const translations = {
                 advanced3d: "Advanced 3D",
                 karmaland: "KARMALAND",
                 multicam: "Multi-Cameras"
-            },
-            modal: {
-                videoTitle: "Play Video",
-                thumbnailTitle: "Full Thumbnail"
             }
+        },
+        modal: {
+            videoTitle: "Play Video",
+            reelTitle: "Play Reel",
+            thumbnailTitle: "Full Thumbnail",
+            videoNotSupported: "Your browser does not support video playback."
         },
         clients: {
             title: "My Clients",

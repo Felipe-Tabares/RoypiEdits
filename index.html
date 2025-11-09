@@ -295,6 +295,91 @@
                 </div>
             </div>
             
+            <!-- Reels Subsection -->
+            <div id="portfolio-reels" class="portfolio-subsection mt-5">
+                <h3 class="portfolio-subtitle" data-i18n="portfolio.reels.title">Reels</h3>
+                <div class="row g-4 portfolio-grid mt-4">
+                    <div class="col-md-6 col-lg-4 portfolio-item">
+                        <div class="portfolio-card portfolio-card-reel">
+                            <div class="portfolio-image portfolio-image-reel" data-reel-video="0">
+                                <video class="reel-preview-video" muted loop playsinline preload="metadata">
+                                    <source src="img/tiktok/vala 2.mp4" type="video/mp4">
+                                </video>
+                                <div class="portfolio-overlay">
+                                    <i class="bi bi-play-circle"></i>
+                                    <p data-i18n="portfolio.watchVideo">Ver Video</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 portfolio-item">
+                        <div class="portfolio-card portfolio-card-reel">
+                            <div class="portfolio-image portfolio-image-reel" data-reel-video="1">
+                                <video class="reel-preview-video" muted loop playsinline preload="metadata">
+                                    <source src="img/tiktok/evelin.mp4" type="video/mp4">
+                                </video>
+                                <div class="portfolio-overlay">
+                                    <i class="bi bi-play-circle"></i>
+                                    <p data-i18n="portfolio.watchVideo">Ver Video</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 portfolio-item">
+                        <div class="portfolio-card portfolio-card-reel">
+                            <div class="portfolio-image portfolio-image-reel" data-reel-video="2">
+                                <video class="reel-preview-video" muted loop playsinline preload="metadata">
+                                    <source src="img/tiktok/elita.mp4" type="video/mp4">
+                                </video>
+                                <div class="portfolio-overlay">
+                                    <i class="bi bi-play-circle"></i>
+                                    <p data-i18n="portfolio.watchVideo">Ver Video</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 portfolio-item">
+                        <div class="portfolio-card portfolio-card-reel">
+                            <div class="portfolio-image portfolio-image-reel" data-reel-video="3">
+                                <video class="reel-preview-video" muted loop playsinline preload="metadata">
+                                    <source src="img/tiktok/cumbi.mp4" type="video/mp4">
+                                </video>
+                                <div class="portfolio-overlay">
+                                    <i class="bi bi-play-circle"></i>
+                                    <p data-i18n="portfolio.watchVideo">Ver Video</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 portfolio-item">
+                        <div class="portfolio-card portfolio-card-reel">
+                            <div class="portfolio-image portfolio-image-reel" data-reel-video="4">
+                                <video class="reel-preview-video" muted loop playsinline preload="metadata">
+                                    <source src="img/tiktok/andylive.mp4" type="video/mp4">
+                                </video>
+                                <div class="portfolio-overlay">
+                                    <i class="bi bi-play-circle"></i>
+                                    <p data-i18n="portfolio.watchVideo">Ver Video</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 portfolio-item">
+                        <div class="portfolio-card portfolio-card-reel">
+                            <div class="portfolio-image portfolio-image-reel" data-reel-video="5">
+                                <video class="reel-preview-video" muted loop playsinline preload="metadata">
+                                    <source src="img/tiktok/alemizzle.mp4" type="video/mp4">
+                                </video>
+                                <div class="portfolio-overlay">
+                                    <i class="bi bi-play-circle"></i>
+                                    <p data-i18n="portfolio.watchVideo">Ver Video</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             <!-- Miniaturas Subsection -->
             <div id="portfolio-miniaturas" class="portfolio-subsection mt-5">
                 <h3 class="portfolio-subtitle" data-i18n="portfolio.miniaturas.title">Miniaturas</h3>
@@ -553,6 +638,25 @@
                             style="border: none; width: 100%; height: 100%; display: block; margin: 0; padding: 0;"
                             title="YouTube video player">
                         </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reel Video Modal -->
+    <div class="modal fade" id="reelModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-reel">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" data-i18n="modal.reelTitle">Reproducir Reel</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" style="padding: 0;">
+                    <div id="reelContainer" style="background: #000; margin: 0; padding: 0;">
+                        <video id="reelVideo" controls autoplay playsinline style="width: 100%; height: auto; display: block; margin: 0; padding: 0; outline: none;">
+                            <p data-i18n="modal.videoNotSupported">Tu navegador no soporta la reproducción de videos.</p>
+                        </video>
                     </div>
                 </div>
             </div>
