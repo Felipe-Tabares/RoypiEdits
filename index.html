@@ -210,7 +210,7 @@
                 <div class="row g-4 portfolio-grid mt-4">
                 <div class="col-md-6 col-lg-4 portfolio-item">
                     <div class="portfolio-card">
-                        <div class="portfolio-image">
+                        <div class="portfolio-image" data-video-thumbnail="0">
                             <div class="portfolio-category">
                                 <i class="bi bi-lightning-charge"></i>
                                 <span data-i18n="portfolio.category.professional">Estilo Profesional</span>
@@ -224,7 +224,7 @@
                 </div>
                 <div class="col-md-6 col-lg-4 portfolio-item">
                     <div class="portfolio-card">
-                        <div class="portfolio-image">
+                        <div class="portfolio-image" data-video-thumbnail="1">
                             <div class="portfolio-category">
                                 <i class="bi bi-star"></i>
                                 <span data-i18n="portfolio.category.advanced3d">3D Avanzado</span>
@@ -238,7 +238,7 @@
                 </div>
                 <div class="col-md-6 col-lg-4 portfolio-item">
                     <div class="portfolio-card">
-                        <div class="portfolio-image">
+                        <div class="portfolio-image" data-video-thumbnail="2">
                             <div class="portfolio-category">
                                 <i class="bi bi-lightning-charge"></i>
                                 <span data-i18n="portfolio.category.karmaland">KARMALAND</span>
@@ -252,7 +252,7 @@
                 </div>
                 <div class="col-md-6 col-lg-4 portfolio-item">
                     <div class="portfolio-card">
-                        <div class="portfolio-image">
+                        <div class="portfolio-image" data-video-thumbnail="3">
                             <div class="portfolio-category">
                                 <i class="bi bi-lightning-charge"></i>
                                 <span data-i18n="portfolio.category.multicam">Multicámaras</span>
@@ -266,24 +266,10 @@
                 </div>
                 <div class="col-md-6 col-lg-4 portfolio-item">
                     <div class="portfolio-card">
-                        <div class="portfolio-image">
+                        <div class="portfolio-image" data-video-thumbnail="4">
                             <div class="portfolio-category">
                                 <i class="bi bi-lightning-charge"></i>
                                 <span data-i18n="portfolio.category.professional">Estilo Profesional</span>
-                            </div>
-                            <div class="portfolio-overlay">
-                                <i class="bi bi-play-circle"></i>
-                                <p data-i18n="portfolio.watchVideo">Ver Video</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 portfolio-item">
-                    <div class="portfolio-card">
-                        <div class="portfolio-image">
-                            <div class="portfolio-category">
-                                <i class="bi bi-star"></i>
-                                <span data-i18n="portfolio.category.advanced3d">3D Avanzado</span>
                             </div>
                             <div class="portfolio-overlay">
                                 <i class="bi bi-play-circle"></i>
@@ -301,7 +287,7 @@
                 <div class="row g-4 portfolio-grid mt-4">
                     <div class="col-md-6 col-lg-4 portfolio-item">
                         <div class="portfolio-card">
-                            <div class="portfolio-image" style="background-image: url('img/miniaturas/David.png'); background-size: cover; background-position: center;">
+                            <div class="portfolio-image" style="background-image: url('img/miniaturas/alemizzle 2.png'); background-size: cover; background-position: center;">
                                 <div class="portfolio-overlay">
                                     <i class="bi bi-zoom-in"></i>
                                     <p data-i18n="portfolio.viewFull">Ver Completo</p>
@@ -541,9 +527,18 @@
                     <h5 class="modal-title" data-i18n="modal.videoTitle">Reproducir Video</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body">
-                    <div class="ratio ratio-16x9">
-                        <iframe src="" frameborder="0" allowfullscreen id="videoFrame"></iframe>
+                <div class="modal-body" style="padding: 0;">
+                    <div class="ratio ratio-16x9" id="videoContainer" style="background: #000;">
+                        <iframe 
+                            id="videoFrame" 
+                            src="" 
+                            frameborder="0" 
+                            allowfullscreen
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
+                            style="border: none; width: 100%; height: 100%; display: block;"
+                            title="YouTube video player">
+                        </iframe>
                     </div>
                 </div>
             </div>

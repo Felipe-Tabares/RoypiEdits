@@ -65,20 +65,182 @@ const portfolioCards = document.querySelectorAll('#portfolio-videos .portfolio-c
 const videoModal = new bootstrap.Modal(document.getElementById('videoModal'));
 const videoFrame = document.getElementById('videoFrame');
 
-portfolioCards.forEach(card => {
+// Variable para el contenedor del video
+const videoContainer = document.getElementById('videoContainer');
+
+// Array con las URLs de los videos para embed
+// Twitter/X: https://x.com/Daveit_/status/1983673716090519606
+// YouTube videos: usando youtube-nocookie.com para evitar problemas de cookies y Error 153
+const videoUrls = [
+    'https://platform.twitter.com/embed/Tweet.html?id=1983673716090519606&theme=dark&dnt=true', // Twitter/X
+    'https://www.youtube-nocookie.com/embed/rmR77SOYNDM?si=FuvNhdQYjP6fgCZH&autoplay=1&rel=0&modestbranding=1', // YouTube
+    'https://www.youtube-nocookie.com/embed/dKNuDwCpZN8?si=HKcDHzyhc--oi1_T&autoplay=1&rel=0&modestbranding=1', // YouTube
+    'https://www.youtube-nocookie.com/embed/Yq4tucwULhk?si=Ey3qhQId7mtDxWlG&autoplay=1&rel=0&modestbranding=1', // YouTube
+    'https://www.youtube-nocookie.com/embed/3E8J3QnAAhI?si=aiYoWE57uqNQNpTI&autoplay=1&rel=0&modestbranding=1'  // YouTube
+];
+
+// Array con los IDs de YouTube para thumbnails
+const youtubeVideoIds = [
+    null, // Twitter (no tiene YouTube ID)
+    'rmR77SOYNDM',
+    'dKNuDwCpZN8',
+    'Yq4tucwULhk',
+    '3E8J3QnAAhI'
+];
+
+// Array con URLs de thumbnails
+// Para YouTube: usar la API de thumbnails de YouTube
+// Para Twitter: usar una imagen placeholder (puedes reemplazarla con una imagen personalizada)
+const videoThumbnails = [
+    'https://pbs.twimg.com/media/GaZqQxGXcAEFJfZ?format=jpg&name=large', // Thumbnail del tweet (si no funciona, usar fallback)
+    'https://img.youtube.com/vi/rmR77SOYNDM/maxresdefault.jpg',
+    'https://img.youtube.com/vi/dKNuDwCpZN8/maxresdefault.jpg',
+    'https://img.youtube.com/vi/Yq4tucwULhk/maxresdefault.jpg',
+    'https://img.youtube.com/vi/3E8J3QnAAhI/maxresdefault.jpg'
+];
+
+// Fallback para thumbnails de YouTube si maxresdefault no está disponible
+const videoThumbnailsFallback = [
+    'https://via.placeholder.com/1280x720/1a2332/4a9eff?text=Twitter+Video', // Fallback para Twitter
+    'https://img.youtube.com/vi/rmR77SOYNDM/hqdefault.jpg',
+    'https://img.youtube.com/vi/dKNuDwCpZN8/hqdefault.jpg',
+    'https://img.youtube.com/vi/Yq4tucwULhk/hqdefault.jpg',
+    'https://img.youtube.com/vi/3E8J3QnAAhI/hqdefault.jpg'
+];
+
+// Aplicar thumbnails a las tarjetas de video
+document.addEventListener('DOMContentLoaded', () => {
+    const portfolioImages = document.querySelectorAll('#portfolio-videos .portfolio-image[data-video-thumbnail]');
+    portfolioImages.forEach((img, index) => {
+        const thumbnailIndex = parseInt(img.getAttribute('data-video-thumbnail'));
+        if (videoThumbnails[thumbnailIndex]) {
+            // Crear una imagen para verificar si el thumbnail carga correctamente
+            const testImg = new Image();
+            testImg.onload = () => {
+                img.style.backgroundImage = `url('${videoThumbnails[thumbnailIndex]}')`;
+                img.style.backgroundSize = 'cover';
+                img.style.backgroundPosition = 'center';
+                img.style.backgroundRepeat = 'no-repeat';
+            };
+            testImg.onerror = () => {
+                // Si falla, usar el fallback
+                if (videoThumbnailsFallback[thumbnailIndex]) {
+                    img.style.backgroundImage = `url('${videoThumbnailsFallback[thumbnailIndex]}')`;
+                    img.style.backgroundSize = 'cover';
+                    img.style.backgroundPosition = 'center';
+                    img.style.backgroundRepeat = 'no-repeat';
+                }
+            };
+            testImg.src = videoThumbnails[thumbnailIndex];
+        }
+    });
+});
+
+portfolioCards.forEach((card, index) => {
     card.addEventListener('click', () => {
-        // Aquí puedes agregar la URL del video cuando la tengas
-        // Por ahora, usaremos un video de ejemplo de YouTube
-        const videoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1';
-        videoFrame.src = videoUrl;
-        videoModal.show();
+        if (videoUrls[index]) {
+            const url = videoUrls[index];
+            
+            // Verificar si estamos usando file:// protocol (puede causar problemas)
+            const isLocalFile = window.location.protocol === 'file:';
+            if (isLocalFile && (url.includes('youtube.com') || url.includes('youtube-nocookie.com'))) {
+                // Si es file:// y es YouTube, mostrar advertencia y abrir en nueva pestaña
+                if (confirm('Para ver los videos correctamente, es recomendable usar un servidor local (por ejemplo, con Live Server). ¿Deseas abrir el video en YouTube en una nueva pestaña?')) {
+                    const videoId = youtubeVideoIds[index];
+                    if (videoId) {
+                        window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+                    }
+                }
+                return;
+            }
+            
+            // Para todos los videos, mostrar en el modal
+            if (url.includes('platform.twitter.com')) {
+                // Para Twitter, usar altura específica y permitir el embed
+                if (videoContainer) {
+                    videoContainer.className = 'ratio';
+                    videoContainer.style.height = '650px';
+                    videoFrame.style.height = '650px';
+                    videoFrame.style.width = '100%';
+                }
+                // Limpiar iframe
+                videoFrame.removeAttribute('src');
+                videoFrame.src = 'about:blank';
+                
+                setTimeout(() => {
+                    videoFrame.src = url;
+                    videoFrame.setAttribute('allow', 'autoplay; encrypted-media');
+                    videoFrame.setAttribute('allowfullscreen', 'true');
+                    videoFrame.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+                    videoModal.show();
+                }, 50);
+            } else if (url.includes('youtube.com') || url.includes('youtu.be') || url.includes('youtube-nocookie.com')) {
+                // Para YouTube, usar ratio 16x9 con parámetros correctos
+                if (videoContainer) {
+                    videoContainer.className = 'ratio ratio-16x9';
+                    videoContainer.style.height = '';
+                    videoFrame.style.height = '';
+                    videoFrame.style.width = '';
+                }
+                
+                // Limpiar completamente el iframe antes de establecer la nueva URL
+                videoFrame.removeAttribute('src');
+                videoFrame.src = 'about:blank';
+                
+                // Esperar un momento para que el iframe se limpie completamente
+                setTimeout(() => {
+                    // Configurar TODOS los atributos necesarios del iframe en el orden correcto
+                    videoFrame.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen');
+                    videoFrame.setAttribute('allowfullscreen', '');
+                    videoFrame.setAttribute('frameborder', '0');
+                    videoFrame.setAttribute('title', 'YouTube video player');
+                    videoFrame.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+                    
+                    // Asegurar que el iframe tenga los estilos correctos
+                    videoFrame.style.border = 'none';
+                    videoFrame.style.width = '100%';
+                    videoFrame.style.height = '100%';
+                    videoFrame.style.display = 'block';
+                    
+                    // Establecer la URL como último paso
+                    videoFrame.setAttribute('src', url);
+                    
+                    // Mostrar el modal
+                    videoModal.show();
+                }, 150);
+            }
+        }
     });
 });
 
 // Limpiar el iframe cuando se cierre el modal
-document.getElementById('videoModal').addEventListener('hidden.bs.modal', () => {
-    videoFrame.src = '';
-});
+const videoModalElement = document.getElementById('videoModal');
+if (videoModalElement) {
+    videoModalElement.addEventListener('hidden.bs.modal', () => {
+        if (videoFrame) {
+            // Detener cualquier reproducción antes de limpiar
+            try {
+                videoFrame.contentWindow?.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
+            } catch (e) {
+                // Ignorar errores de cross-origin
+            }
+            // Limpiar completamente el iframe
+            videoFrame.removeAttribute('src');
+            videoFrame.src = 'about:blank';
+        }
+    });
+    
+    // También limpiar cuando el modal se oculte (por si acaso)
+    videoModalElement.addEventListener('hide.bs.modal', () => {
+        if (videoFrame) {
+            try {
+                videoFrame.contentWindow?.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+            } catch (e) {
+                // Ignorar errores
+            }
+        }
+    });
+}
 
 // ========================================
 // Portfolio Thumbnail Modal
@@ -89,7 +251,7 @@ const thumbnailFullImage = document.getElementById('thumbnailFullImage');
 
 // Array con las rutas de las imágenes de miniaturas
 const thumbnailImages = [
-    'img/miniaturas/David.png',
+    'img/miniaturas/alemizzle 2.png',
     'img/miniaturas/David2.png',
     'img/miniaturas/Nicolenco.png',
     'img/miniaturas/Kilos.png',
