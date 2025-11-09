@@ -2249,6 +2249,78 @@ html {
     background: transparent;
 }
 
+/* Estilos específicos para el modal de Twitter (formato vertical) */
+.modal-dialog.modal-twitter {
+    max-width: 500px;
+    width: auto;
+    margin: 1.75rem auto;
+    padding: 0;
+}
+
+.modal-dialog.modal-twitter .modal-content {
+    max-height: 95vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 16px;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.modal-dialog.modal-twitter .modal-header {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(74, 158, 255, 0.2);
+    flex-shrink: 0;
+    margin: 0;
+}
+
+.modal-dialog.modal-twitter .modal-body {
+    padding: 0 !important;
+    margin: 0 !important;
+    display: block;
+    background: transparent !important;
+    min-height: auto;
+    overflow: visible;
+    width: 100%;
+    border: none;
+}
+
+.modal-dialog.modal-twitter #videoContainer {
+    display: block;
+    width: 100% !important;
+    margin: 0 !important;
+    background: transparent !important;
+    padding: 0 !important;
+    height: auto;
+    min-height: auto;
+    position: relative;
+    overflow: visible;
+    max-width: 100% !important;
+    border: none;
+    box-sizing: border-box;
+}
+
+.modal-dialog.modal-twitter #videoFrame {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 700px !important;
+    min-height: 700px;
+    max-height: 85vh;
+    border-radius: 0;
+    display: block;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* Asegurar que no haya espacios adicionales en el contenido del modal */
+.modal-dialog.modal-twitter * {
+    box-sizing: border-box;
+}
+
 #thumbnailFullImage {
     max-width: 100%;
     height: auto;

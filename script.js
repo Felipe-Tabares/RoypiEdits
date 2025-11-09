@@ -76,7 +76,8 @@ const videoUrls = [
     'https://www.youtube-nocookie.com/embed/rmR77SOYNDM?si=FuvNhdQYjP6fgCZH&autoplay=1&rel=0&modestbranding=1', // YouTube
     'https://www.youtube-nocookie.com/embed/dKNuDwCpZN8?si=HKcDHzyhc--oi1_T&autoplay=1&rel=0&modestbranding=1', // YouTube
     'https://www.youtube-nocookie.com/embed/Yq4tucwULhk?si=Ey3qhQId7mtDxWlG&autoplay=1&rel=0&modestbranding=1', // YouTube
-    'https://www.youtube-nocookie.com/embed/3E8J3QnAAhI?si=aiYoWE57uqNQNpTI&autoplay=1&rel=0&modestbranding=1'  // YouTube
+    'https://www.youtube-nocookie.com/embed/3E8J3QnAAhI?si=aiYoWE57uqNQNpTI&autoplay=1&rel=0&modestbranding=1', // YouTube
+    'https://www.youtube-nocookie.com/embed/X9BiLvumAqo?si=0TbmSLMomCj-zECF&autoplay=1&rel=0&modestbranding=1'  // YouTube
 ];
 
 // Array con los IDs de YouTube para thumbnails
@@ -85,27 +86,30 @@ const youtubeVideoIds = [
     'rmR77SOYNDM',
     'dKNuDwCpZN8',
     'Yq4tucwULhk',
-    '3E8J3QnAAhI'
+    '3E8J3QnAAhI',
+    'X9BiLvumAqo'
 ];
 
 // Array con URLs de thumbnails
 // Para YouTube: usar la API de thumbnails de YouTube
 // Para Twitter: usar una imagen placeholder (puedes reemplazarla con una imagen personalizada)
 const videoThumbnails = [
-    'https://pbs.twimg.com/media/GaZqQxGXcAEFJfZ?format=jpg&name=large', // Thumbnail del tweet (si no funciona, usar fallback)
+    'img/miniaturas/David2.png', // Thumbnail para el video de Twitter
     'https://img.youtube.com/vi/rmR77SOYNDM/maxresdefault.jpg',
     'https://img.youtube.com/vi/dKNuDwCpZN8/maxresdefault.jpg',
     'https://img.youtube.com/vi/Yq4tucwULhk/maxresdefault.jpg',
-    'https://img.youtube.com/vi/3E8J3QnAAhI/maxresdefault.jpg'
+    'https://img.youtube.com/vi/3E8J3QnAAhI/maxresdefault.jpg',
+    'https://img.youtube.com/vi/X9BiLvumAqo/maxresdefault.jpg'
 ];
 
 // Fallback para thumbnails de YouTube si maxresdefault no está disponible
 const videoThumbnailsFallback = [
-    'https://via.placeholder.com/1280x720/1a2332/4a9eff?text=Twitter+Video', // Fallback para Twitter
+    'img/miniaturas/David2.png', // Fallback para Twitter (misma imagen)
     'https://img.youtube.com/vi/rmR77SOYNDM/hqdefault.jpg',
     'https://img.youtube.com/vi/dKNuDwCpZN8/hqdefault.jpg',
     'https://img.youtube.com/vi/Yq4tucwULhk/hqdefault.jpg',
-    'https://img.youtube.com/vi/3E8J3QnAAhI/hqdefault.jpg'
+    'https://img.youtube.com/vi/3E8J3QnAAhI/hqdefault.jpg',
+    'https://img.youtube.com/vi/X9BiLvumAqo/hqdefault.jpg'
 ];
 
 // Aplicar thumbnails a las tarjetas de video
@@ -156,32 +160,89 @@ portfolioCards.forEach((card, index) => {
             
             // Para todos los videos, mostrar en el modal
             if (url.includes('platform.twitter.com')) {
-                // Para Twitter, usar altura específica y permitir el embed
-                if (videoContainer) {
-                    videoContainer.className = 'ratio';
-                    videoContainer.style.height = '650px';
-                    videoFrame.style.height = '650px';
-                    videoFrame.style.width = '100%';
+                // Para Twitter, ajustar el modal a formato vertical/narrow
+                const modalDialog = document.querySelector('#videoModal .modal-dialog');
+                if (modalDialog) {
+                    modalDialog.classList.add('modal-twitter');
+                    modalDialog.classList.remove('modal-lg');
                 }
+                
+                // Remover el ratio 16:9 y usar dimensiones personalizadas para Twitter
+                if (videoContainer) {
+                    videoContainer.className = '';
+                    videoContainer.style.aspectRatio = '';
+                    videoContainer.style.height = 'auto';
+                    videoContainer.style.minHeight = 'auto';
+                    videoContainer.style.maxHeight = 'none';
+                    videoContainer.style.width = '100%';
+                    videoContainer.style.maxWidth = '100%';
+                    videoContainer.style.margin = '0';
+                    videoContainer.style.padding = '0';
+                    videoContainer.style.display = 'block';
+                    videoContainer.style.overflow = 'hidden';
+                }
+                
                 // Limpiar iframe
                 videoFrame.removeAttribute('src');
                 videoFrame.src = 'about:blank';
                 
                 setTimeout(() => {
-                    videoFrame.src = url;
+                    // Configurar el iframe para Twitter con dimensiones ajustadas
+                    // Agregar parámetros a la URL para ajustar el ancho del embed (500px para que coincida con el modal)
+                    const twitterUrl = url + '&width=500&hideCard=false&hideThread=false';
+                    videoFrame.setAttribute('src', twitterUrl);
                     videoFrame.setAttribute('allow', 'autoplay; encrypted-media');
                     videoFrame.setAttribute('allowfullscreen', 'true');
                     videoFrame.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+                    videoFrame.style.width = '100%';
+                    videoFrame.style.maxWidth = '100%';
+                    videoFrame.style.height = '700px';
+                    videoFrame.style.minHeight = '700px';
+                    videoFrame.style.maxHeight = '85vh';
+                    videoFrame.style.display = 'block';
+                    videoFrame.style.margin = '0';
+                    videoFrame.style.padding = '0';
+                    videoFrame.style.border = 'none';
+                    videoFrame.style.borderRadius = '0';
+                    videoFrame.style.background = 'transparent';
+                    videoFrame.style.boxSizing = 'border-box';
+                    videoFrame.style.overflow = 'hidden';
+                    
+                    // Asegurar que el contenedor también esté correctamente configurado
+                    if (videoContainer) {
+                        videoContainer.style.background = 'transparent';
+                    }
+                    
                     videoModal.show();
                 }, 50);
             } else if (url.includes('youtube.com') || url.includes('youtu.be') || url.includes('youtube-nocookie.com')) {
-                // Para YouTube, usar ratio 16x9 con parámetros correctos
+                // Para YouTube, restaurar el modal a tamaño normal y ratio 16x9
+                const modalDialog = document.querySelector('#videoModal .modal-dialog');
+                if (modalDialog) {
+                    modalDialog.classList.remove('modal-twitter');
+                    modalDialog.classList.add('modal-lg');
+                }
+                
+                // Restaurar ratio 16x9 para YouTube
                 if (videoContainer) {
                     videoContainer.className = 'ratio ratio-16x9';
+                    videoContainer.style.aspectRatio = '';
                     videoContainer.style.height = '';
-                    videoFrame.style.height = '';
-                    videoFrame.style.width = '';
+                    videoContainer.style.minHeight = '';
+                    videoContainer.style.maxHeight = '';
+                    videoContainer.style.width = '';
+                    videoContainer.style.maxWidth = '';
+                    videoContainer.style.margin = '';
+                    videoContainer.style.padding = '';
+                    videoContainer.style.display = '';
                 }
+                
+                // Restaurar estilos del iframe para YouTube
+                videoFrame.style.minHeight = '';
+                videoFrame.style.maxHeight = '';
+                videoFrame.style.maxWidth = '';
+                videoFrame.style.margin = '';
+                videoFrame.style.borderRadius = '';
                 
                 // Limpiar completamente el iframe antes de establecer la nueva URL
                 videoFrame.removeAttribute('src');
@@ -196,11 +257,13 @@ portfolioCards.forEach((card, index) => {
                     videoFrame.setAttribute('title', 'YouTube video player');
                     videoFrame.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
                     
-                    // Asegurar que el iframe tenga los estilos correctos
+                    // Asegurar que el iframe tenga los estilos correctos para YouTube
                     videoFrame.style.border = 'none';
                     videoFrame.style.width = '100%';
                     videoFrame.style.height = '100%';
                     videoFrame.style.display = 'block';
+                    videoFrame.style.maxWidth = '';
+                    videoFrame.style.margin = '';
                     
                     // Establecer la URL como último paso
                     videoFrame.setAttribute('src', url);
@@ -227,6 +290,36 @@ if (videoModalElement) {
             // Limpiar completamente el iframe
             videoFrame.removeAttribute('src');
             videoFrame.src = 'about:blank';
+        }
+        
+        // Restaurar el modal a su estado por defecto
+        const modalDialog = document.querySelector('#videoModal .modal-dialog');
+        if (modalDialog) {
+            modalDialog.classList.remove('modal-twitter');
+            modalDialog.classList.add('modal-lg');
+        }
+        
+        // Restaurar el contenedor a su estado por defecto
+        if (videoContainer) {
+            videoContainer.className = 'ratio ratio-16x9';
+            videoContainer.style.aspectRatio = '';
+            videoContainer.style.height = '';
+            videoContainer.style.minHeight = '';
+            videoContainer.style.maxHeight = '';
+            videoContainer.style.width = '';
+            videoContainer.style.maxWidth = '';
+            videoContainer.style.margin = '';
+            videoContainer.style.padding = '';
+            videoContainer.style.display = '';
+        }
+        
+        // Restaurar estilos del iframe
+        if (videoFrame) {
+            videoFrame.style.minHeight = '';
+            videoFrame.style.maxHeight = '';
+            videoFrame.style.maxWidth = '';
+            videoFrame.style.margin = '';
+            videoFrame.style.borderRadius = '';
         }
     });
     
