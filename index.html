@@ -91,9 +91,6 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero-section">
-        <video class="hero-background-video" autoplay muted loop playsinline>
-            <source src="img/portada/portada.mp4" type="video/mp4">
-        </video>
         <div class="hero-overlay"></div>
         <div class="container">
             <div class="row align-items-center min-vh-100">
@@ -104,6 +101,14 @@
                         <div class="hero-buttons fade-in-delay-2">
                             <a href="#clientes" class="btn btn-primary-custom" data-i18n="hero.btnPortfolio">Ver Portafolio</a>
                             <a href="#contacto" class="btn btn-outline-custom" data-i18n="hero.btnContact">Contactar</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="hero-video-container fade-in-delay-1">
+                        <div class="video-placeholder">
+                            <i class="bi bi-play-circle-fill"></i>
+                            <p data-i18n="hero.featuredVideo">Video Destacado</p>
                         </div>
                     </div>
                 </div>
@@ -287,92 +292,6 @@
                         </div>
                     </div>
                 </div>
-                </div>
-            </div>
-            
-            <!-- Reels Subsection -->
-            <div id="portfolio-reels" class="portfolio-subsection mt-5">
-                <h3 class="portfolio-subtitle" data-i18n="portfolio.reels.title">Reels</h3>
-                <div class="row g-4 portfolio-grid mt-4">
-                    <div class="col-md-6 col-lg-4 portfolio-item">
-                        <div class="portfolio-card portfolio-card-reel">
-                            <div class="portfolio-image portfolio-image-reel" data-reel-video="0">
-                                <video class="reel-preview-video" muted loop playsinline preload="metadata">
-                                    <source src="img/tiktok/vala 2.mp4" type="video/mp4">
-                                </video>
-                                <div class="portfolio-overlay">
-                                    <i class="bi bi-play-circle"></i>
-                                    <p data-i18n="portfolio.watchVideo">Ver Video</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 portfolio-item">
-                        <div class="portfolio-card portfolio-card-reel">
-                            <div class="portfolio-image portfolio-image-reel" data-reel-video="1">
-                                <video class="reel-preview-video" muted loop playsinline preload="metadata">
-                                    <source src="img/tiktok/evelin.mp4" type="video/mp4">
-                                </video>
-                                <div class="portfolio-overlay">
-                                    <i class="bi bi-play-circle"></i>
-                                    <p data-i18n="portfolio.watchVideo">Ver Video</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 portfolio-item">
-                        <div class="portfolio-card portfolio-card-reel">
-                            <div class="portfolio-image portfolio-image-reel" data-reel-video="2">
-                                <video class="reel-preview-video" muted loop playsinline preload="metadata">
-                                    <source src="img/tiktok/elita.mp4" type="video/mp4">
-                                </video>
-                                <div class="portfolio-overlay">
-                                    <i class="bi bi-play-circle"></i>
-                                    <p data-i18n="portfolio.watchVideo">Ver Video</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 portfolio-item">
-                        <div class="portfolio-card portfolio-card-reel">
-                            <div class="portfolio-image portfolio-image-reel" data-reel-video="3">
-                                <video class="reel-preview-video" muted loop playsinline preload="metadata">
-                                    <source src="img/tiktok/cumbi.mp4" type="video/mp4">
-                                </video>
-                                <div class="portfolio-overlay">
-                                    <i class="bi bi-play-circle"></i>
-                                    <p data-i18n="portfolio.watchVideo">Ver Video</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 portfolio-item">
-                        <div class="portfolio-card portfolio-card-reel">
-                            <div class="portfolio-image portfolio-image-reel" data-reel-video="4">
-                                <video class="reel-preview-video" muted loop playsinline preload="metadata">
-                                    <source src="img/tiktok/andylive.mp4" type="video/mp4">
-                                </video>
-                                <div class="portfolio-overlay">
-                                    <i class="bi bi-play-circle"></i>
-                                    <p data-i18n="portfolio.watchVideo">Ver Video</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 portfolio-item">
-                        <div class="portfolio-card portfolio-card-reel">
-                            <div class="portfolio-image portfolio-image-reel" data-reel-video="5">
-                                <video class="reel-preview-video" muted loop playsinline preload="metadata">
-                                    <source src="img/tiktok/alemizzle.mp4" type="video/mp4">
-                                </video>
-                                <div class="portfolio-overlay">
-                                    <i class="bi bi-play-circle"></i>
-                                    <p data-i18n="portfolio.watchVideo">Ver Video</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             
             <!-- Miniaturas Subsection -->
@@ -441,6 +360,91 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Reels Subsection -->
+            <div id="portfolio-reels" class="portfolio-subsection mt-5">
+                <h3 class="portfolio-subtitle" data-i18n="portfolio.reels.title">Reels</h3>
+                <div class="row g-4 portfolio-grid mt-4">
+                    <div class="col-md-6 col-lg-4 portfolio-item">
+                        <div class="portfolio-card portfolio-card-reel">
+                            <div class="portfolio-image portfolio-image-reel" data-reel-video="0">
+                                <video class="reel-preview-video" muted loop playsinline autoplay preload="metadata">
+                                    <source src="img/tiktok/vala 2.mp4" type="video/mp4">
+                                </video>
+                                <div class="portfolio-overlay">
+                                    <i class="bi bi-play-circle"></i>
+                                    <p data-i18n="portfolio.watchVideo">Ver Video</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 portfolio-item">
+                        <div class="portfolio-card portfolio-card-reel">
+                            <div class="portfolio-image portfolio-image-reel" data-reel-video="1">
+                                <video class="reel-preview-video" muted loop playsinline autoplay preload="metadata">
+                                    <source src="img/tiktok/evelin.mp4" type="video/mp4">
+                                </video>
+                                <div class="portfolio-overlay">
+                                    <i class="bi bi-play-circle"></i>
+                                    <p data-i18n="portfolio.watchVideo">Ver Video</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 portfolio-item">
+                        <div class="portfolio-card portfolio-card-reel">
+                            <div class="portfolio-image portfolio-image-reel" data-reel-video="2">
+                                <video class="reel-preview-video" muted loop playsinline autoplay preload="metadata">
+                                    <source src="img/tiktok/elita.mp4" type="video/mp4">
+                                </video>
+                                <div class="portfolio-overlay">
+                                    <i class="bi bi-play-circle"></i>
+                                    <p data-i18n="portfolio.watchVideo">Ver Video</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 portfolio-item">
+                        <div class="portfolio-card portfolio-card-reel">
+                            <div class="portfolio-image portfolio-image-reel" data-reel-video="3">
+                                <video class="reel-preview-video" muted loop playsinline autoplay preload="metadata">
+                                    <source src="img/tiktok/cumbi.mp4" type="video/mp4">
+                                </video>
+                                <div class="portfolio-overlay">
+                                    <i class="bi bi-play-circle"></i>
+                                    <p data-i18n="portfolio.watchVideo">Ver Video</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 portfolio-item">
+                        <div class="portfolio-card portfolio-card-reel">
+                            <div class="portfolio-image portfolio-image-reel" data-reel-video="4">
+                                <video class="reel-preview-video" muted loop playsinline autoplay preload="metadata">
+                                    <source src="img/tiktok/andylive.mp4" type="video/mp4">
+                                </video>
+                                <div class="portfolio-overlay">
+                                    <i class="bi bi-play-circle"></i>
+                                    <p data-i18n="portfolio.watchVideo">Ver Video</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 portfolio-item">
+                        <div class="portfolio-card portfolio-card-reel">
+                            <div class="portfolio-image portfolio-image-reel" data-reel-video="5">
+                                <video class="reel-preview-video" muted loop playsinline autoplay preload="metadata">
+                                    <source src="img/tiktok/alemizzle.mp4" type="video/mp4">
+                                </video>
+                                <div class="portfolio-overlay">
+                                    <i class="bi bi-play-circle"></i>
+                                    <p data-i18n="portfolio.watchVideo">Ver Video</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -448,84 +452,206 @@
     <section id="testimonios" class="testimonials-section py-5">
         <div class="container">
             <div class="section-header text-center mb-5">
-                <h2 class="section-title" data-i18n="testimonials.title">Recomendaciones</h2>
+                <h2 class="section-title" data-i18n="testimonials.title">Reseñas de Nuestros Clientes</h2>
                 <p class="section-subtitle" data-i18n="testimonials.subtitle">Escucha lo que dicen nuestros clientes sobre nuestro servicio</p>
             </div>
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="testimonial-card">
-                        <div class="testimonial-rating">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
+            
+            <!-- Testimonial Images Section -->
+            <div class="testimonial-images-section mb-5">
+                <div class="row g-4 justify-content-center">
+                    <div class="col-md-6 col-lg-5">
+                        <div class="testimonial-image-card">
+                            <div class="testimonial-image-wrapper">
+                                <img src="img/recomendaciones/recomendacion alemizzle.png" alt="Alemizzle" class="testimonial-image">
+                                <div class="testimonial-image-overlay">
+                                    <div class="testimonial-image-name">Alemizzle</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="testimonial-audio-container">
-                            <audio class="testimonial-audio" controls preload="metadata">
-                                <source src="" type="audio/mpeg">
-                                <source src="" type="audio/ogg">
-                                <p data-i18n="testimonials.audioNotSupported">Tu navegador no soporta la reproducción de audio.</p>
-                            </audio>
-                        </div>
-                        <p class="testimonial-text" data-i18n="testimonials.testimonial1.text">"Increíble trabajo. Superó todas nuestras expectativas. El editor tiene un ojo increíble para los detalles y la creatividad."</p>
-                        <div class="testimonial-author">
-                            <div class="author-avatar"></div>
-                            <div>
-                                <h5 data-i18n="testimonials.testimonial1.name">María González</h5>
-                                <p data-i18n="testimonials.testimonial1.role">Directora de Marketing</p>
+                    </div>
+                    <div class="col-md-6 col-lg-5">
+                        <div class="testimonial-image-card">
+                            <div class="testimonial-image-wrapper">
+                                <img src="img/recomendaciones/recomendacion sayguz.png" alt="Sayguz" class="testimonial-image">
+                                <div class="testimonial-image-overlay">
+                                    <div class="testimonial-image-name">Sayguz</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="testimonial-card">
-                        <div class="testimonial-rating">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                        </div>
-                        <div class="testimonial-audio-container">
-                            <audio class="testimonial-audio" controls preload="metadata">
-                                <source src="" type="audio/mpeg">
-                                <source src="" type="audio/ogg">
-                                <p data-i18n="testimonials.audioNotSupported">Tu navegador no soporta la reproducción de audio.</p>
-                            </audio>
-                        </div>
-                        <p class="testimonial-text" data-i18n="testimonials.testimonial2.text">"Profesionalismo y calidad excepcional. Entregaron el proyecto antes de tiempo y con una calidad que nos dejó sin palabras."</p>
-                        <div class="testimonial-author">
-                            <div class="author-avatar"></div>
-                            <div>
-                                <h5 data-i18n="testimonials.testimonial2.name">Carlos Ramírez</h5>
-                                <p data-i18n="testimonials.testimonial2.role">CEO, TechStart</p>
+            </div>
+            
+            <!-- Testimonial Audio Section -->
+            <div class="testimonial-audios-section">
+                <h3 class="testimonial-audios-title text-center mb-4" data-i18n="testimonials.audioTitle">Escucha sus Recomendaciones</h3>
+                <div class="row g-4 justify-content-center">
+                    <!-- SOYVALA -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="testimonial-audio-card">
+                            <div class="testimonial-audio-header">
+                                <div class="testimonial-audio-icon">
+                                    <i class="bi bi-mic-fill"></i>
+                                </div>
+                                <h5 class="testimonial-audio-name">Soy Vala</h5>
+                            </div>
+                            <div class="testimonial-audio-container">
+                                <audio class="testimonial-audio" preload="metadata" data-audio-name="SOYVALA">
+                                    <source src="img/recomendaciones/SOYVALA.mp3" type="audio/mpeg">
+                                    <p data-i18n="testimonials.audioNotSupported">Tu navegador no soporta la reproducción de audio.</p>
+                                </audio>
+                                <div class="custom-audio-player">
+                                    <button class="custom-audio-play-btn" aria-label="Play/Pause">
+                                        <i class="bi bi-play-fill play-icon"></i>
+                                        <i class="bi bi-pause-fill pause-icon" style="display: none;"></i>
+                                    </button>
+                                    <div class="custom-audio-progress-wrapper">
+                                        <div class="custom-audio-progress-bar">
+                                            <div class="custom-audio-progress-filled"></div>
+                                            <div class="custom-audio-progress-handle"></div>
+                                        </div>
+                                        <div class="custom-audio-time">
+                                            <span class="custom-audio-current-time">0:00</span>
+                                            <span class="custom-audio-duration">0:00</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="testimonial-card">
-                        <div class="testimonial-rating">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
+                    
+                    <!-- LEANDRO -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="testimonial-audio-card">
+                            <div class="testimonial-audio-header">
+                                <div class="testimonial-audio-icon">
+                                    <i class="bi bi-mic-fill"></i>
+                                </div>
+                                <h5 class="testimonial-audio-name">Leandro</h5>
+                            </div>
+                            <div class="testimonial-audio-container">
+                                <audio class="testimonial-audio" preload="metadata" data-audio-name="LEANDRO">
+                                    <source src="img/recomendaciones/LEANDRO.mp3" type="audio/mpeg">
+                                    <p data-i18n="testimonials.audioNotSupported">Tu navegador no soporta la reproducción de audio.</p>
+                                </audio>
+                                <div class="custom-audio-player">
+                                    <button class="custom-audio-play-btn" aria-label="Play/Pause">
+                                        <i class="bi bi-play-fill play-icon"></i>
+                                        <i class="bi bi-pause-fill pause-icon" style="display: none;"></i>
+                                    </button>
+                                    <div class="custom-audio-progress-wrapper">
+                                        <div class="custom-audio-progress-bar">
+                                            <div class="custom-audio-progress-filled"></div>
+                                            <div class="custom-audio-progress-handle"></div>
+                                        </div>
+                                        <div class="custom-audio-time">
+                                            <span class="custom-audio-current-time">0:00</span>
+                                            <span class="custom-audio-duration">0:00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="testimonial-audio-container">
-                            <audio class="testimonial-audio" controls preload="metadata">
-                                <source src="" type="audio/mpeg">
-                                <source src="" type="audio/ogg">
-                                <p data-i18n="testimonials.audioNotSupported">Tu navegador no soporta la reproducción de audio.</p>
-                            </audio>
+                    </div>
+                    
+                    <!-- EVELIN -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="testimonial-audio-card">
+                            <div class="testimonial-audio-header">
+                                <div class="testimonial-audio-icon">
+                                    <i class="bi bi-mic-fill"></i>
+                                </div>
+                                <h5 class="testimonial-audio-name">Evelin</h5>
+                            </div>
+                            <div class="testimonial-audio-container">
+                                <audio class="testimonial-audio" preload="metadata" data-audio-name="EVELIN">
+                                    <source src="img/recomendaciones/EVELIN.mp3" type="audio/mpeg">
+                                    <p data-i18n="testimonials.audioNotSupported">Tu navegador no soporta la reproducción de audio.</p>
+                                </audio>
+                                <div class="custom-audio-player">
+                                    <button class="custom-audio-play-btn" aria-label="Play/Pause">
+                                        <i class="bi bi-play-fill play-icon"></i>
+                                        <i class="bi bi-pause-fill pause-icon" style="display: none;"></i>
+                                    </button>
+                                    <div class="custom-audio-progress-wrapper">
+                                        <div class="custom-audio-progress-bar">
+                                            <div class="custom-audio-progress-filled"></div>
+                                            <div class="custom-audio-progress-handle"></div>
+                                        </div>
+                                        <div class="custom-audio-time">
+                                            <span class="custom-audio-current-time">0:00</span>
+                                            <span class="custom-audio-duration">0:00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <p class="testimonial-text" data-i18n="testimonials.testimonial3.text">"El mejor editor con el que hemos trabajado. Entiende perfectamente la visión del cliente y la lleva a otro nivel."</p>
-                        <div class="testimonial-author">
-                            <div class="author-avatar"></div>
-                            <div>
-                                <h5 data-i18n="testimonials.testimonial3.name">Ana Martínez</h5>
-                                <p data-i18n="testimonials.testimonial3.role">Productora de Eventos</p>
+                    </div>
+                    
+                    <!-- ELSHARK -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="testimonial-audio-card">
+                            <div class="testimonial-audio-header">
+                                <div class="testimonial-audio-icon">
+                                    <i class="bi bi-mic-fill"></i>
+                                </div>
+                                <h5 class="testimonial-audio-name">El Shark</h5>
+                            </div>
+                            <div class="testimonial-audio-container">
+                                <audio class="testimonial-audio" preload="metadata" data-audio-name="ELSHARK">
+                                    <source src="img/recomendaciones/ELSHARK.mp3" type="audio/mpeg">
+                                    <p data-i18n="testimonials.audioNotSupported">Tu navegador no soporta la reproducción de audio.</p>
+                                </audio>
+                                <div class="custom-audio-player">
+                                    <button class="custom-audio-play-btn" aria-label="Play/Pause">
+                                        <i class="bi bi-play-fill play-icon"></i>
+                                        <i class="bi bi-pause-fill pause-icon" style="display: none;"></i>
+                                    </button>
+                                    <div class="custom-audio-progress-wrapper">
+                                        <div class="custom-audio-progress-bar">
+                                            <div class="custom-audio-progress-filled"></div>
+                                            <div class="custom-audio-progress-handle"></div>
+                                        </div>
+                                        <div class="custom-audio-time">
+                                            <span class="custom-audio-current-time">0:00</span>
+                                            <span class="custom-audio-duration">0:00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- ANDYLIVE -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="testimonial-audio-card">
+                            <div class="testimonial-audio-header">
+                                <div class="testimonial-audio-icon">
+                                    <i class="bi bi-mic-fill"></i>
+                                </div>
+                                <h5 class="testimonial-audio-name">Andy Live</h5>
+                            </div>
+                            <div class="testimonial-audio-container">
+                                <audio class="testimonial-audio" preload="metadata" data-audio-name="ANDYLIVE">
+                                    <source src="img/recomendaciones/ANDYLIVE.mp3" type="audio/mpeg">
+                                    <p data-i18n="testimonials.audioNotSupported">Tu navegador no soporta la reproducción de audio.</p>
+                                </audio>
+                                <div class="custom-audio-player">
+                                    <button class="custom-audio-play-btn" aria-label="Play/Pause">
+                                        <i class="bi bi-play-fill play-icon"></i>
+                                        <i class="bi bi-pause-fill pause-icon" style="display: none;"></i>
+                                    </button>
+                                    <div class="custom-audio-progress-wrapper">
+                                        <div class="custom-audio-progress-bar">
+                                            <div class="custom-audio-progress-filled"></div>
+                                            <div class="custom-audio-progress-handle"></div>
+                                        </div>
+                                        <div class="custom-audio-time">
+                                            <span class="custom-audio-current-time">0:00</span>
+                                            <span class="custom-audio-duration">0:00</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

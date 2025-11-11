@@ -51,8 +51,8 @@ class ConstellationsCanvas {
         this.canvas.style.width = '100%';
         this.canvas.style.height = '100%';
         this.canvas.style.pointerEvents = 'none';
-        this.canvas.style.zIndex = '-1';
-        this.canvas.style.opacity = '0.6';
+        this.canvas.style.zIndex = '0';
+        this.canvas.style.opacity = '0.65';
         
         document.body.appendChild(this.canvas);
         this.ctx = this.canvas.getContext('2d');

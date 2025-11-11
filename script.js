@@ -1,43 +1,4 @@
 // ========================================
-// Hero Background Video
-// ========================================
-document.addEventListener('DOMContentLoaded', () => {
-    const heroVideo = document.querySelector('.hero-background-video');
-    
-    if (heroVideo) {
-        // Asegurar que el video se reproduzca
-        heroVideo.addEventListener('loadeddata', () => {
-            heroVideo.play().catch(err => {
-                console.log('Autoplay bloqueado para video de portada, se reproducirá al interactuar');
-            });
-        });
-        
-        // Reproducir cuando el usuario interactúe
-        const playVideoOnInteraction = () => {
-            if (heroVideo.paused) {
-                heroVideo.play().catch(() => {});
-            }
-        };
-        
-        document.addEventListener('click', playVideoOnInteraction, { once: true });
-        document.addEventListener('touchstart', playVideoOnInteraction, { once: true });
-        
-        // Manejar errores
-        heroVideo.addEventListener('error', (e) => {
-            console.error('Error al cargar video de portada:', e);
-            // Si el video falla, mantener el fondo oscuro
-            const heroSection = heroVideo.closest('.hero-section');
-            if (heroSection) {
-                heroSection.style.background = '#000';
-            }
-        });
-        
-        // Asegurar que el video esté cargando
-        heroVideo.load();
-    }
-});
-
-// ========================================
 // Smooth Scroll para enlaces de navegación
 // ========================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -388,233 +349,55 @@ const reelVideos = [
     { video: 'img/tiktok/alemizzle.mp4', type: 'local' }
 ];
 
-// Función para generar thumbnail desde video MP4
-function generateThumbnailFromVideo(videoSrc, imgElement, index) {
-    return new Promise((resolve, reject) => {
-        const video = document.createElement('video');
-        video.src = videoSrc;
-        video.muted = true;
-        video.playsInline = true;
-        video.preload = 'metadata';
-        // No usar crossOrigin para archivos locales
-        
-        // Ocultar el video completamente pero mantenerlo en el DOM
-        video.style.position = 'absolute';
-        video.style.top = '-9999px';
-        video.style.left = '-9999px';
-        video.style.width = '320px';
-        video.style.height = '568px';
-        video.style.opacity = '0';
-        video.style.pointerEvents = 'none';
-        video.style.zIndex = '-1';
-        
-        let thumbnailGenerated = false;
-        let seekAttempts = 0;
-        const maxSeekAttempts = 3;
-        
-        const generateThumb = () => {
-            if (thumbnailGenerated) return;
-            
-            seekAttempts++;
-            if (seekAttempts > maxSeekAttempts) {
-                thumbnailGenerated = true;
-                reject(new Error('Max seek attempts reached'));
-                return;
-            }
-            
-            try {
-                // Intentar ir a diferentes puntos del video para capturar un frame
-                const seekTime = seekAttempts * 0.5; // 0.5s, 1s, 1.5s
-                video.currentTime = seekTime;
-            } catch (e) {
-                console.warn('Error al establecer currentTime:', e);
-                if (seekAttempts >= maxSeekAttempts) {
-                    thumbnailGenerated = true;
-                    reject(e);
-                }
-            }
-        };
-        
-        video.addEventListener('loadedmetadata', () => {
-            // Una vez que tenemos los metadatos, intentar capturar frame
-            if (video.videoWidth > 0 && video.videoHeight > 0) {
-                generateThumb();
-            }
-        }, { once: true });
-        
-        video.addEventListener('loadeddata', () => {
-            // Si los datos están cargados, intentar capturar
-            if (!thumbnailGenerated && video.videoWidth > 0) {
-                generateThumb();
-            }
-        }, { once: true });
-        
-        video.addEventListener('canplay', () => {
-            // Cuando el video puede reproducirse, intentar capturar
-            if (!thumbnailGenerated && video.videoWidth > 0) {
-                generateThumb();
-            }
-        }, { once: true });
-        
-        video.addEventListener('seeked', () => {
-            if (thumbnailGenerated) return;
-            thumbnailGenerated = true;
-            
-            try {
-                if (video.videoWidth === 0 || video.videoHeight === 0) {
-                    throw new Error('Video dimensions are zero');
-                }
-                
-                const canvas = document.createElement('canvas');
-                canvas.width = video.videoWidth;
-                canvas.height = video.videoHeight;
-                const ctx = canvas.getContext('2d');
-                
-                // Dibujar el frame actual
-                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                
-                // Convertir a imagen
-                const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
-                imgElement.style.backgroundImage = `url(${dataUrl})`;
-                imgElement.style.backgroundSize = 'cover';
-                imgElement.style.backgroundPosition = 'center';
-                imgElement.style.backgroundColor = 'transparent';
-                
-                resolve(dataUrl);
-            } catch (e) {
-                console.warn(`Error al generar thumbnail para reel ${index}:`, e);
-                reject(e);
-            } finally {
-                // Limpiar después de un delay
-                setTimeout(() => {
-                    try {
-                        video.pause();
-                        video.src = '';
-                        video.load();
-                        if (video.parentNode) {
-                            video.remove();
-                        }
-                    } catch (cleanupError) {
-                        // Ignorar errores de limpieza
-                    }
-                }, 2000);
-            }
-        }, { once: true });
-        
-        video.addEventListener('error', (e) => {
-            console.warn(`Error al cargar video para thumbnail ${index}:`, videoSrc, e);
-            thumbnailGenerated = true;
-            reject(e);
-            setTimeout(() => {
-                if (video.parentNode) {
-                    video.remove();
-                }
-            }, 100);
-        });
-        
-        // Agregar el video al DOM para que pueda cargar
-        document.body.appendChild(video);
-        
-        // Forzar la carga
-        video.load();
-        
-        // Timeout de seguridad (aumentado a 15 segundos)
-        setTimeout(() => {
-            if (!thumbnailGenerated) {
-                thumbnailGenerated = true;
-                console.warn(`Timeout generando thumbnail para reel ${index}`);
-                try {
-                    video.pause();
-                    video.src = '';
-                    if (video.parentNode) {
-                        video.remove();
-                    }
-                } catch (cleanupError) {
-                    // Ignorar
-                }
-                reject(new Error('Timeout'));
-            }
-        }, 15000);
-    });
-}
-
-// Aplicar previews a las cards de reels usando videos directamente
+// Aplicar previews y eventos a las cards de reels
 document.addEventListener('DOMContentLoaded', () => {
-    // Inicializar videos de preview (autoplay en loop, muted)
-    const previewVideos = document.querySelectorAll('#portfolio-reels .reel-preview-video');
-    
-    // Función compartida para reproducir todos los videos cuando el usuario interactúe
-    const playAllVideosOnInteraction = () => {
-        previewVideos.forEach(v => {
-            if (v.paused && v.readyState >= 2) {
-                v.play().catch(() => {});
-            }
-        });
-    };
-    
-    // Agregar listeners globales una sola vez
-    document.addEventListener('click', playAllVideosOnInteraction, { once: true });
-    document.addEventListener('touchstart', playAllVideosOnInteraction, { once: true });
-    
-    previewVideos.forEach((video, index) => {
-        // Función para intentar reproducir el video
-        const tryPlay = () => {
-            if (video.readyState >= 2) { // HAVE_CURRENT_DATA o superior
-                video.play().then(() => {
-                    // Video reproducido exitosamente
-                }).catch(() => {
-                    // Autoplay bloqueado - se reproducirá cuando el usuario interactúe
-                });
-            }
-        };
-        
-        // Intentar reproducir cuando los datos estén listos
-        video.addEventListener('loadeddata', tryPlay, { once: true });
-        
-        // También intentar cuando pueda reproducirse
-        video.addEventListener('canplay', () => {
-            if (video.paused) {
-                tryPlay();
-            }
-        }, { once: true });
-        
-        // Cuando el video termine, reiniciarlo (loop)
-        video.addEventListener('ended', () => {
-            video.currentTime = 0;
-            video.play().catch(() => {
-                // Ignorar errores de autoplay
-            });
-        });
-        
-        // Manejar errores de carga
-        video.addEventListener('error', (e) => {
-            const source = video.querySelector('source');
-            console.error(`Error al cargar video preview ${index}:`, source ? source.src : 'unknown', e);
-            // Mostrar un placeholder de error
-            const container = video.parentElement;
-            if (container) {
-                container.style.backgroundColor = 'rgba(26, 35, 50, 0.9)';
-            }
-        });
-        
-        // Reproducir cuando el mouse entre en la card
-        const card = video.closest('.portfolio-card-reel');
-        if (card) {
-            card.addEventListener('mouseenter', () => {
-                if (video.paused && video.readyState >= 2) {
-                    video.play().catch(() => {});
-                }
-            });
-        }
-        
-        // Asegurar que el video esté cargando
-        video.load();
-    });
-    
-    // Event listeners para las cards de reels (abrir modal)
+    // Event listeners para las cards de reels
     const reelCards = document.querySelectorAll('#portfolio-reels .portfolio-card');
     const reelModalElement = document.getElementById('reelModal');
     const reelVideo = document.getElementById('reelVideo');
+    const reelPreviewVideos = document.querySelectorAll('#portfolio-reels .reel-preview-video');
+    
+    // Configurar los videos de previsualización para que se reproduzcan automáticamente
+    reelPreviewVideos.forEach((previewVideo, index) => {
+        // Manejar errores de carga
+        previewVideo.addEventListener('error', (e) => {
+            console.warn(`Error al cargar video de reel ${index}:`, e);
+            // Mantener el fondo negro si hay error
+            const container = previewVideo.closest('.portfolio-image-reel');
+            if (container) {
+                container.style.backgroundColor = '#000';
+            }
+        });
+        
+        // Cuando el video está listo, intentar reproducir
+        previewVideo.addEventListener('loadeddata', () => {
+            previewVideo.play().catch(error => {
+                // Si falla el autoplay, el video se mostrará con el primer frame como thumbnail
+                console.log(`Autoplay bloqueado para preview de reel ${index}:`, error);
+            });
+        }, { once: true });
+        
+        // También intentar reproducir cuando los metadatos estén cargados
+        previewVideo.addEventListener('loadedmetadata', () => {
+            if (previewVideo.readyState >= 2) {
+                previewVideo.play().catch(() => {});
+            }
+        }, { once: true });
+        
+        // Intentar reproducir automáticamente al cargar (puede fallar por políticas del navegador)
+        previewVideo.play().catch(error => {
+            // Si falla el autoplay, el video se mostrará con el primer frame como thumbnail
+            console.log(`Autoplay bloqueado para preview de reel ${index}:`, error);
+        });
+        
+        // Reproducir cuando el usuario interactúa con la card (hover)
+        const card = previewVideo.closest('.portfolio-card');
+        if (card) {
+            card.addEventListener('mouseenter', () => {
+                previewVideo.play().catch(() => {});
+            });
+        }
+    });
     
     if (reelModalElement && reelVideo) {
         const reelModal = new bootstrap.Modal(reelModalElement);
@@ -625,21 +408,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     const reelData = reelVideos[index];
                     
                     if (reelData.type === 'local') {
-                        // Detener el preview video
-                        const previewVideo = card.querySelector('.reel-preview-video');
-                        if (previewVideo) {
-                            previewVideo.pause();
-                        }
-                        
-                        // Reproducir video completo en el modal
+                        // Reproducir video MP4 local en el modal
                         reelVideo.innerHTML = `<source src="${reelData.video}" type="video/mp4">`;
                         reelVideo.load();
-                        reelVideo.play().catch(err => {
-                            console.warn('Error al reproducir video en modal:', err);
-                        });
+                        
+                        // Intentar reproducir automáticamente cuando el modal se muestra
                         reelModal.show();
+                        reelModalElement.addEventListener('shown.bs.modal', function playVideo() {
+                            reelVideo.play().catch(error => {
+                                console.log('Autoplay bloqueado en modal:', error);
+                            });
+                            reelModalElement.removeEventListener('shown.bs.modal', playVideo);
+                        }, { once: true });
                     } else if (reelData.type === 'youtube') {
-                        // Para YouTube, redirigir
+                        // Para YouTube, redirigir o usar iframe (similar a videos normales)
                         window.open(`https://www.youtube.com/watch?v=${reelData.video}`, '_blank');
                     }
                 }
@@ -653,13 +435,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 reelVideo.currentTime = 0;
                 reelVideo.innerHTML = '';
             }
-            
-            // Reanudar los previews cuando se cierra el modal
-            previewVideos.forEach(video => {
-                video.play().catch(err => {
-                    // Ignorar errores
-                });
-            });
         });
     }
 });
@@ -810,7 +585,7 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 // Observar elementos que deben animarse al hacer scroll
-const animateElements = document.querySelectorAll('.service-card, .testimonial-card, .portfolio-item, .contact-item');
+const animateElements = document.querySelectorAll('.service-card, .testimonial-card, .testimonial-image-card, .testimonial-audio-card, .portfolio-item, .contact-item');
 animateElements.forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(30px)';
@@ -1070,8 +845,9 @@ const translations = {
             }
         },
         testimonials: {
-            title: "Recomendaciones",
+            title: "Reseñas de Nuestros Clientes",
             subtitle: "Escucha lo que dicen nuestros clientes sobre nuestro servicio",
+            audioTitle: "Escucha sus Recomendaciones",
             audioNotSupported: "Tu navegador no soporta la reproducción de audio.",
             testimonial1: {
                 text: "\"Increíble trabajo. Superó todas nuestras expectativas. El editor tiene un ojo increíble para los detalles y la creatividad.\"",
@@ -1193,8 +969,9 @@ const translations = {
             }
         },
         testimonials: {
-            title: "Recommendations",
+            title: "Client Reviews",
             subtitle: "Listen to what our clients say about our service",
+            audioTitle: "Listen to their Recommendations",
             audioNotSupported: "Your browser does not support audio playback.",
             testimonial1: {
                 text: "\"Incredible work. It exceeded all our expectations. The editor has an incredible eye for detail and creativity.\"",
@@ -1372,7 +1149,196 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+    
+    // ========================================
+    // Custom Audio Player Functionality
+    // ========================================
+    initializeCustomAudioPlayers();
 });
+
+// ========================================
+// Custom Audio Player Functionality
+// ========================================
+function initializeCustomAudioPlayers() {
+    const audioPlayers = document.querySelectorAll('.custom-audio-player');
+    
+    audioPlayers.forEach((player) => {
+        const audio = player.closest('.testimonial-audio-container').querySelector('.testimonial-audio');
+        const playBtn = player.querySelector('.custom-audio-play-btn');
+        const progressBar = player.querySelector('.custom-audio-progress-bar');
+        const progressFilled = player.querySelector('.custom-audio-progress-filled');
+        const progressHandle = player.querySelector('.custom-audio-progress-handle');
+        const currentTimeEl = player.querySelector('.custom-audio-current-time');
+        const durationEl = player.querySelector('.custom-audio-duration');
+        
+        if (!audio || !playBtn || !progressBar || !progressFilled || !progressHandle || !currentTimeEl || !durationEl) {
+            return;
+        }
+        
+        let isDragging = false;
+        let wasPlaying = false;
+        
+        // Format time helper
+        function formatTime(seconds) {
+            if (isNaN(seconds) || !isFinite(seconds)) return '0:00';
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+        
+        // Update progress bar
+        function updateProgress() {
+            if (!audio.duration || !isFinite(audio.duration)) return;
+            const percent = (audio.currentTime / audio.duration) * 100;
+            progressFilled.style.width = `${percent}%`;
+            progressHandle.style.left = `${percent}%`;
+            currentTimeEl.textContent = formatTime(audio.currentTime);
+        }
+        
+        // Update duration
+        function updateDuration() {
+            durationEl.textContent = formatTime(audio.duration);
+        }
+        
+        // Set progress from click
+        function setProgress(e) {
+            if (!audio.duration || !isFinite(audio.duration)) return;
+            const rect = progressBar.getBoundingClientRect();
+            const percent = Math.max(0, Math.min(100, ((e.clientX - rect.left) / rect.width) * 100));
+            const newTime = (percent / 100) * audio.duration;
+            audio.currentTime = Math.max(0, Math.min(newTime, audio.duration));
+            updateProgress();
+        }
+        
+        // Play/Pause button
+        playBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                // Pause all other audio players
+                document.querySelectorAll('.testimonial-audio').forEach(a => {
+                    if (a !== audio && !a.paused) {
+                        a.pause();
+                        const otherPlayer = a.closest('.testimonial-audio-container');
+                        if (otherPlayer) {
+                            const otherBtn = otherPlayer.querySelector('.custom-audio-play-btn');
+                            if (otherBtn) otherBtn.classList.remove('playing');
+                        }
+                    }
+                });
+                audio.play().catch(error => {
+                    console.log('Error playing audio:', error);
+                });
+                playBtn.classList.add('playing');
+            } else {
+                audio.pause();
+                playBtn.classList.remove('playing');
+            }
+        });
+        
+        // Progress bar click
+        progressBar.addEventListener('click', (e) => {
+            if (!isDragging) {
+                setProgress(e);
+            }
+        });
+        
+        // Progress bar drag
+        progressBar.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            wasPlaying = !audio.paused;
+            if (wasPlaying) audio.pause();
+            progressBar.classList.add('dragging');
+            setProgress(e);
+        });
+        
+        const handleMouseMove = (e) => {
+            if (isDragging) {
+                setProgress(e);
+            }
+        };
+        
+        const handleMouseUp = () => {
+            if (isDragging) {
+                isDragging = false;
+                progressBar.classList.remove('dragging');
+                if (wasPlaying) {
+                    audio.play().catch(error => {
+                        console.log('Error playing audio:', error);
+                    });
+                }
+            }
+        };
+        
+        document.addEventListener('mousemove', handleMouseMove);
+        document.addEventListener('mouseup', handleMouseUp);
+        
+        // Touch events for mobile
+        progressBar.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            isDragging = true;
+            wasPlaying = !audio.paused;
+            if (wasPlaying) audio.pause();
+            progressBar.classList.add('dragging');
+            const touch = e.touches[0];
+            const rect = progressBar.getBoundingClientRect();
+            const percent = Math.max(0, Math.min(100, ((touch.clientX - rect.left) / rect.width) * 100));
+            if (audio.duration && isFinite(audio.duration)) {
+                const newTime = (percent / 100) * audio.duration;
+                audio.currentTime = Math.max(0, Math.min(newTime, audio.duration));
+                updateProgress();
+            }
+        }, { passive: false });
+        
+        progressBar.addEventListener('touchmove', (e) => {
+            if (isDragging) {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const rect = progressBar.getBoundingClientRect();
+                const percent = Math.max(0, Math.min(100, ((touch.clientX - rect.left) / rect.width) * 100));
+                if (audio.duration && isFinite(audio.duration)) {
+                    const newTime = (percent / 100) * audio.duration;
+                    audio.currentTime = Math.max(0, Math.min(newTime, audio.duration));
+                    updateProgress();
+                }
+            }
+        }, { passive: false });
+        
+        progressBar.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            if (isDragging) {
+                isDragging = false;
+                progressBar.classList.remove('dragging');
+                if (wasPlaying) {
+                    audio.play().catch(error => {
+                        console.log('Error playing audio:', error);
+                    });
+                }
+            }
+        }, { passive: false });
+        
+        // Audio event listeners
+        audio.addEventListener('loadedmetadata', () => {
+            updateDuration();
+            updateProgress();
+        });
+        audio.addEventListener('timeupdate', updateProgress);
+        audio.addEventListener('ended', () => {
+            playBtn.classList.remove('playing');
+            audio.currentTime = 0;
+            updateProgress();
+        });
+        audio.addEventListener('play', () => {
+            playBtn.classList.add('playing');
+        });
+        audio.addEventListener('pause', () => {
+            playBtn.classList.remove('playing');
+        });
+        
+        // Initialize duration if already loaded
+        if (audio.readyState >= 2) {
+            updateDuration();
+        }
+    });
+}
 
 console.log('Roypi - Página cargada exitosamente');
 

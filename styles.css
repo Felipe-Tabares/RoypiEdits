@@ -2,11 +2,11 @@
    Variables y Configuración Global
    ======================================== */
 :root {
-    /* Colores pastel masculinos oscuros */
-    --pastel-blue-dark: #1a2332;
-    --pastel-teal-dark: #1e2d2f;
-    --pastel-slate-dark: #252b3a;
-    --pastel-indigo-dark: #2a2340;
+    /* Colores pastel masculinos oscuros (muy oscuros) */
+    --pastel-blue-dark: #050709;
+    --pastel-teal-dark: #060a0c;
+    --pastel-slate-dark: #070b0e;
+    --pastel-indigo-dark: #080a0f;
     
     /* Colores de acento luminosos (efectos neón) */
     --neon-cyan: #00d9ff;
@@ -15,10 +15,10 @@
     --neon-purple: #7b68ee;
     --neon-green: #39ff14;
     
-    /* Colores pastel suaves para elementos */
-    --pastel-blue-light: #2d3e50;
-    --pastel-teal-light: #2d4749;
-    --pastel-slate-light: #3a4557;
+    /* Colores pastel suaves para elementos (muy oscuros) */
+    --pastel-blue-light: #0a0f14;
+    --pastel-teal-light: #0c1215;
+    --pastel-slate-light: #0d1218;
     
     --primary-color: #4a9eff;
     --secondary-color: #00d9ff;
@@ -26,8 +26,8 @@
     --text-dark: #ffffff;
     --text-light: #b8c5d6;
     --white: #ffffff;
-    --bg-dark: #0f1419;
-    --bg-section: rgba(26, 35, 50, 0.6);
+    --bg-dark: #030406;
+    --bg-section: rgba(5, 8, 12, 0.9);
     
     --shadow-soft: 0 4px 20px rgba(74, 158, 255, 0.15);
     --shadow-medium: 0 8px 30px rgba(0, 217, 255, 0.2);
@@ -54,9 +54,10 @@ body {
     letter-spacing: -0.01em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background: #030406;
 }
 
-/* Estudio de grabación - Fondo con efecto de profundidad */
+/* Estudio de grabación - Fondo con efecto de profundidad (muy oscuro) */
 body::before {
     content: '';
     position: fixed;
@@ -65,17 +66,17 @@ body::before {
     width: 100%;
     height: 100%;
     background: 
-        /* Fondo base oscuro */
-        linear-gradient(135deg, var(--pastel-blue-dark) 0%, var(--pastel-teal-dark) 50%, var(--pastel-slate-dark) 100%),
-        /* Rejilla de estudio */
-        linear-gradient(0deg, transparent 24%, rgba(74, 158, 255, 0.03) 25%, rgba(74, 158, 255, 0.03) 26%, transparent 27%, transparent 74%, rgba(0, 217, 255, 0.03) 75%, rgba(0, 217, 255, 0.03) 76%, transparent 77%, transparent),
-        linear-gradient(90deg, transparent 24%, rgba(74, 158, 255, 0.03) 25%, rgba(74, 158, 255, 0.03) 26%, transparent 27%, transparent 74%, rgba(0, 217, 255, 0.03) 75%, rgba(0, 217, 255, 0.03) 76%, transparent 77%, transparent);
+        /* Fondo base muy oscuro con variación sutil */
+        linear-gradient(135deg, #030406 0%, #040608 25%, #050709 50%, #060a0c 75%, #030406 100%),
+        /* Rejilla de estudio (muy sutil) */
+        linear-gradient(0deg, transparent 24%, rgba(74, 158, 255, 0.008) 25%, rgba(74, 158, 255, 0.008) 26%, transparent 27%, transparent 74%, rgba(0, 217, 255, 0.008) 75%, rgba(0, 217, 255, 0.008) 76%, transparent 77%, transparent),
+        linear-gradient(90deg, transparent 24%, rgba(74, 158, 255, 0.008) 25%, rgba(74, 158, 255, 0.008) 26%, transparent 27%, transparent 74%, rgba(0, 217, 255, 0.008) 75%, rgba(0, 217, 255, 0.008) 76%, transparent 77%, transparent);
     background-size: 100% 100%, 50px 50px, 50px 50px;
     z-index: -3;
-    opacity: 1;
+    opacity: 0.7;
 }
 
-/* Iluminaciones desde el fondo (efectos de luz de estudio) */
+/* Iluminaciones desde el fondo (efectos de luz de estudio - muy sutiles) */
 body::after {
     content: '';
     position: fixed;
@@ -84,28 +85,28 @@ body::after {
     width: 100%;
     height: 100%;
     background: 
-        /* Luz central desde abajo */
-        radial-gradient(ellipse 800px 600px at 50% 80%, rgba(0, 217, 255, 0.15) 0%, transparent 50%),
-        /* Luz desde arriba izquierda */
-        radial-gradient(ellipse 600px 500px at 20% 20%, rgba(74, 158, 255, 0.12) 0%, transparent 50%),
-        /* Luz desde arriba derecha */
-        radial-gradient(ellipse 600px 500px at 80% 20%, rgba(123, 104, 238, 0.12) 0%, transparent 50%),
-        /* Luz lateral izquierda */
-        radial-gradient(ellipse 400px 800px at 10% 50%, rgba(0, 255, 204, 0.08) 0%, transparent 60%),
-        /* Luz lateral derecha */
-        radial-gradient(ellipse 400px 800px at 90% 50%, rgba(74, 158, 255, 0.08) 0%, transparent 60%);
+        /* Luz central desde abajo (muy sutil) */
+        radial-gradient(ellipse 800px 600px at 50% 80%, rgba(0, 217, 255, 0.04) 0%, transparent 50%),
+        /* Luz desde arriba izquierda (muy sutil) */
+        radial-gradient(ellipse 600px 500px at 20% 20%, rgba(74, 158, 255, 0.03) 0%, transparent 50%),
+        /* Luz desde arriba derecha (muy sutil) */
+        radial-gradient(ellipse 600px 500px at 80% 20%, rgba(123, 104, 238, 0.03) 0%, transparent 50%),
+        /* Luz lateral izquierda (muy sutil) */
+        radial-gradient(ellipse 400px 800px at 10% 50%, rgba(0, 255, 204, 0.02) 0%, transparent 60%),
+        /* Luz lateral derecha (muy sutil) */
+        radial-gradient(ellipse 400px 800px at 90% 50%, rgba(74, 158, 255, 0.02) 0%, transparent 60%);
     z-index: -2;
     animation: studioGlow 8s ease-in-out infinite alternate;
 }
 
 @keyframes studioGlow {
     0% {
-        opacity: 0.8;
-        filter: blur(20px);
+        opacity: 0.4;
+        filter: blur(30px);
     }
     100% {
-        opacity: 1;
-        filter: blur(30px);
+        opacity: 0.5;
+        filter: blur(40px);
     }
 }
 
@@ -125,8 +126,8 @@ h1, h2, h3, h4, h5, h6 {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: -1;
-    opacity: 0.65;
+    z-index: 0;
+    opacity: 0.75;
 }
 
 /* ========================================
@@ -213,7 +214,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .navbar-container {
-    background: rgba(15, 20, 25, 0.4);
+    background: rgba(3, 6, 10, 0.7);
     backdrop-filter: blur(30px) saturate(180%);
     -webkit-backdrop-filter: blur(30px) saturate(180%);
     border-radius: 50px;
@@ -223,19 +224,19 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 
-                0 0 0 1px rgba(255, 255, 255, 0.05) inset,
-                0 0 40px rgba(74, 158, 255, 0.08);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7), 
+                 0 0 0 1px rgba(255, 255, 255, 0.02) inset,
+                 0 0 40px rgba(74, 158, 255, 0.04);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid rgba(74, 158, 255, 0.1);
+    border: 1px solid rgba(74, 158, 255, 0.06);
     overflow: hidden;
 }
 
 .navbar-container:hover {
-    background: rgba(15, 20, 25, 0.5);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 
-                0 0 0 1px rgba(255, 255, 255, 0.08) inset,
-                0 0 50px rgba(74, 158, 255, 0.12);
+    background: rgba(3, 6, 10, 0.8);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8), 
+                 0 0 0 1px rgba(255, 255, 255, 0.03) inset,
+                 0 0 50px rgba(74, 158, 255, 0.08);
 }
 
 .navbar-collapse {
@@ -317,7 +318,11 @@ h1, h2, h3, h4, h5, h6 {
     }
     
     .navbar-brand:hover:not(:active) .brand-text {
-        filter: drop-shadow(0 0 12px rgba(74, 158, 255, 0.8));
+        text-shadow: 
+            0 0 10px rgba(255, 255, 255, 0.7),
+            0 0 18px rgba(255, 255, 255, 0.5),
+            0 0 28px rgba(255, 255, 255, 0.4);
+        filter: brightness(1.2) drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
     }
 }
 
@@ -329,16 +334,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .brand-text {
-    background: linear-gradient(90deg, #7b68ee 0%, #4a9eff 40%, #00d9ff 80%, #39ff14 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #ffffff;
     font-weight: 700;
     letter-spacing: 0.05em;
-    transition: filter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: filter 0.3s cubic-bezier(0.4, 0, 0.2, 1), text-shadow 0.3s ease;
     display: inline-block;
     transform: translateZ(0);
-    will-change: filter;
+    will-change: filter, text-shadow;
+    text-shadow: 
+        0 0 8px rgba(255, 255, 255, 0.5),
+        0 0 15px rgba(255, 255, 255, 0.4),
+        0 0 25px rgba(255, 255, 255, 0.3);
+    filter: brightness(1.1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.4));
 }
 
 .brand-accent {
@@ -511,25 +518,12 @@ h1, h2, h3, h4, h5, h6 {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    background: #000;
+    background: linear-gradient(180deg, rgba(3, 4, 6, 0.9) 0%, rgba(4, 7, 9, 0.9) 50%, rgba(5, 8, 11, 0.9) 100%);
     padding-top: 80px;
     overflow: hidden;
 }
 
-/* Video de fondo en el hero */
-.hero-background-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
-    opacity: 0.6;
-    transition: opacity 0.5s ease;
-}
-
-/* Efectos de iluminación en el hero (sobre el video) */
+/* Efectos de iluminación en el hero */
 .hero-section::before {
     content: '';
     position: absolute;
@@ -539,14 +533,13 @@ h1, h2, h3, h4, h5, h6 {
     height: 200%;
     background: 
         /* Foco de luz principal central */
-        radial-gradient(ellipse 1200px 800px at 50% 60%, rgba(0, 217, 255, 0.15) 0%, rgba(74, 158, 255, 0.1) 30%, transparent 70%),
+        radial-gradient(ellipse 1200px 800px at 50% 60%, rgba(0, 217, 255, 0.25) 0%, rgba(74, 158, 255, 0.15) 30%, transparent 70%),
         /* Luces laterales */
-        radial-gradient(ellipse 800px 600px at 20% 40%, rgba(123, 104, 238, 0.15) 0%, transparent 60%),
-        radial-gradient(ellipse 800px 600px at 80% 40%, rgba(0, 255, 204, 0.15) 0%, transparent 60%);
+        radial-gradient(ellipse 800px 600px at 20% 40%, rgba(123, 104, 238, 0.2) 0%, transparent 60%),
+        radial-gradient(ellipse 800px 600px at 80% 40%, rgba(0, 255, 204, 0.2) 0%, transparent 60%);
     z-index: 0;
     animation: heroGlow 6s ease-in-out infinite alternate;
     filter: blur(40px);
-    pointer-events: none;
 }
 
 @keyframes heroGlow {
@@ -560,7 +553,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
-/* Líneas de rejilla en el hero (sobre el video, más sutiles) */
+/* Líneas de rejilla en el hero */
 .hero-section::after {
     content: '';
     position: absolute;
@@ -574,20 +567,19 @@ h1, h2, h3, h4, h5, h6 {
             0deg,
             transparent,
             transparent 49px,
-            rgba(74, 158, 255, 0.04) 50px,
-            rgba(74, 158, 255, 0.04) 51px
+            rgba(74, 158, 255, 0.08) 50px,
+            rgba(74, 158, 255, 0.08) 51px
         ),
         /* Rejilla vertical */
         repeating-linear-gradient(
             90deg,
             transparent,
             transparent 49px,
-            rgba(0, 217, 255, 0.04) 50px,
-            rgba(0, 217, 255, 0.04) 51px
+            rgba(0, 217, 255, 0.08) 50px,
+            rgba(0, 217, 255, 0.08) 51px
         );
     z-index: 0;
     pointer-events: none;
-    opacity: 0.5;
 }
 
 .hero-overlay {
@@ -596,11 +588,8 @@ h1, h2, h3, h4, h5, h6 {
     left: 0;
     right: 0;
     bottom: 0;
-    background: 
-        radial-gradient(circle at 50% 50%, transparent 0%, rgba(15, 20, 25, 0.5) 100%),
-        linear-gradient(180deg, rgba(15, 20, 25, 0.7) 0%, rgba(15, 20, 25, 0.3) 50%, rgba(15, 20, 25, 0.7) 100%);
+    background: radial-gradient(circle at 50% 50%, transparent 0%, rgba(3, 6, 10, 0.3) 100%);
     z-index: 1;
-    backdrop-filter: blur(1px);
 }
 
 .hero-content {
@@ -957,7 +946,7 @@ h1, h2, h3, h4, h5, h6 {
    Services Section
    ======================================== */
 .services-section {
-    background: rgba(15, 20, 25, 0.4);
+    background: linear-gradient(180deg, rgba(5, 8, 11, 0.85) 0%, rgba(6, 10, 15, 0.85) 30%, rgba(7, 12, 18, 0.85) 60%, rgba(8, 13, 20, 0.85) 100%);
     padding: 6rem 0;
     position: relative;
     backdrop-filter: blur(10px);
@@ -1061,7 +1050,7 @@ h1, h2, h3, h4, h5, h6 {
    ======================================== */
 .portfolio-section {
     padding: 6rem 0;
-    background: rgba(15, 20, 25, 0.6);
+    background: linear-gradient(180deg, rgba(8, 13, 20, 0.85) 0%, rgba(7, 10, 16, 0.85) 30%, rgba(6, 8, 13, 0.85) 60%, rgba(5, 7, 9, 0.85) 100%);
     position: relative;
 }
 
@@ -1219,12 +1208,6 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-.portfolio-card-reel:hover .portfolio-image-reel {
-    border-color: rgba(74, 158, 255, 0.5);
-    box-shadow: 0 8px 30px rgba(74, 158, 255, 0.3);
-    transform: translateY(-5px);
-}
-
 /* Video preview dentro de las cards de reels */
 .reel-preview-video {
     position: absolute;
@@ -1235,11 +1218,24 @@ h1, h2, h3, h4, h5, h6 {
     object-fit: cover;
     z-index: 1;
     background: #000;
+    pointer-events: none;
+    border-radius: 16px;
 }
 
 .portfolio-image-reel:hover .reel-preview-video {
-    opacity: 0.7;
+    opacity: 0.85;
     transition: opacity 0.3s ease;
+}
+
+/* Asegurar que el overlay esté por encima del video */
+.portfolio-image-reel .portfolio-overlay {
+    z-index: 10;
+}
+
+.portfolio-card-reel:hover .portfolio-image-reel {
+    border-color: rgba(74, 158, 255, 0.5);
+    box-shadow: 0 8px 30px rgba(74, 158, 255, 0.3);
+    transform: translateY(-5px);
 }
 
 /* Ajustar el grid para reels en diferentes tamaños de pantalla */
@@ -1305,11 +1301,6 @@ h1, h2, h3, h4, h5, h6 {
     cursor: pointer;
 }
 
-/* Overlay específico para reels - debe estar sobre el video */
-.portfolio-image-reel .portfolio-overlay {
-    z-index: 10;
-}
-
 .portfolio-card:hover .portfolio-overlay {
     opacity: 1;
 }
@@ -1356,7 +1347,7 @@ h1, h2, h3, h4, h5, h6 {
    Clients Section
    ======================================== */
 .clients-section {
-    background: rgba(15, 20, 25, 0.6);
+    background: linear-gradient(180deg, rgba(5, 7, 9, 0.85) 0%, rgba(6, 10, 14, 0.85) 30%, rgba(7, 12, 17, 0.85) 60%, rgba(8, 14, 21, 0.85) 100%);
     padding: 6rem 0;
     position: relative;
     backdrop-filter: blur(10px);
@@ -1462,7 +1453,7 @@ h1, h2, h3, h4, h5, h6 {
    Testimonials Section
    ======================================== */
 .testimonials-section {
-    background: rgba(15, 20, 25, 0.4);
+    background: linear-gradient(180deg, rgba(8, 14, 21, 0.85) 0%, rgba(7, 11, 17, 0.85) 30%, rgba(6, 9, 14, 0.85) 60%, rgba(5, 7, 10, 0.85) 100%);
     padding: 6rem 0;
     position: relative;
     backdrop-filter: blur(10px);
@@ -1480,23 +1471,185 @@ h1, h2, h3, h4, h5, h6 {
     pointer-events: none;
 }
 
-.testimonial-card {
-    background: rgba(26, 35, 50, 0.7);
-    padding: 2.5rem;
-    border-radius: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 30px rgba(74, 158, 255, 0.1);
-    height: 100%;
-    transition: var(--transition);
-    border: 1px solid rgba(74, 158, 255, 0.2);
-    backdrop-filter: blur(10px);
+/* ========================================
+   Testimonial Image Cards
+   ======================================== */
+.testimonial-images-section {
     position: relative;
     z-index: 1;
 }
 
-.testimonial-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 217, 255, 0.3);
-    border-color: var(--neon-cyan);
+.testimonial-image-card {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 40px rgba(74, 158, 255, 0.15);
+    border: 2px solid rgba(74, 158, 255, 0.2);
+    background: rgba(15, 20, 30, 0.6);
+    backdrop-filter: blur(10px);
+}
+
+.testimonial-image-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5), 0 0 60px rgba(74, 158, 255, 0.3);
+    border-color: rgba(74, 158, 255, 0.5);
+}
+
+.testimonial-image-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 75%; /* Aspect ratio 4:3 */
+    overflow: hidden;
+    background: rgba(10, 15, 25, 0.8);
+}
+
+.testimonial-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.testimonial-image-card:hover .testimonial-image {
+    transform: scale(1.1);
+}
+
+.testimonial-image-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.7) 50%, transparent 100%);
+    padding: 2rem 1.5rem 1.5rem;
+    transform: translateY(0);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.testimonial-image-card:hover .testimonial-image-overlay {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.8) 50%, transparent 100%);
+}
+
+.testimonial-image-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+    filter: drop-shadow(0 0 10px rgba(74, 158, 255, 0.6));
+}
+
+/* ========================================
+   Testimonial Audio Cards
+   ======================================== */
+.testimonial-audios-section {
+    position: relative;
+    z-index: 1;
+    margin-top: 4rem;
+}
+
+.testimonial-audios-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 3rem;
+    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.02em;
+}
+
+.testimonial-audio-card {
+    background: rgba(15, 20, 30, 0.7);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3), 0 0 30px rgba(74, 158, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid rgba(74, 158, 255, 0.2);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+}
+
+.testimonial-audio-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(74, 158, 255, 0.05), rgba(0, 217, 255, 0.05));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 0;
+}
+
+.testimonial-audio-card:hover::before {
+    opacity: 1;
+}
+
+.testimonial-audio-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 50px rgba(74, 158, 255, 0.25);
+    border-color: rgba(74, 158, 255, 0.5);
+}
+
+.testimonial-audio-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.testimonial-audio-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(74, 158, 255, 0.3), rgba(0, 217, 255, 0.3));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgba(74, 158, 255, 0.4);
+    box-shadow: 0 0 20px rgba(74, 158, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.testimonial-audio-icon i {
+    font-size: 1.5rem;
+    color: var(--neon-cyan);
+    filter: drop-shadow(0 0 8px rgba(0, 217, 255, 0.6));
+}
+
+.testimonial-audio-card:hover .testimonial-audio-icon {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 0 30px rgba(74, 158, 255, 0.5);
+    border-color: rgba(74, 158, 255, 0.7);
+}
+
+.testimonial-audio-name {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.01em;
+    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    z-index: 1;
 }
 
 .testimonial-rating {
@@ -1506,37 +1659,292 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .testimonial-audio-container {
-    margin: 1.5rem 0;
+    margin: 0;
     width: 100%;
+    position: relative;
+    z-index: 1;
 }
 
 .testimonial-audio {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+}
+
+/* Custom Audio Player Styles */
+.custom-audio-player {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
     width: 100%;
-    height: 50px;
+    padding: 12px 16px;
+    background: linear-gradient(180deg, rgba(10, 15, 25, 0.95) 0%, rgba(15, 20, 30, 0.95) 100%);
+    border-radius: 12px;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5), 0 2px 12px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(74, 158, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.testimonial-audio-card:hover .custom-audio-player {
+    border-color: rgba(74, 158, 255, 0.4);
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5), 0 4px 20px rgba(74, 158, 255, 0.2);
+}
+
+.custom-audio-play-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid rgba(74, 158, 255, 0.5);
+    background: linear-gradient(135deg, rgba(74, 158, 255, 0.4), rgba(0, 217, 255, 0.4));
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 12px rgba(74, 158, 255, 0.8));
     outline: none;
-    border-radius: 8px;
-    background: rgba(26, 35, 50, 0.8);
-    border: 1px solid rgba(74, 158, 255, 0.3);
 }
 
-.testimonial-audio::-webkit-media-controls-panel {
-    background-color: rgba(26, 35, 50, 0.9);
-    border-radius: 8px;
+.custom-audio-play-btn:hover {
+    background: linear-gradient(135deg, rgba(74, 158, 255, 0.6), rgba(0, 217, 255, 0.6));
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 16px rgba(74, 158, 255, 1));
+    border-color: rgba(74, 158, 255, 0.8);
 }
 
-.testimonial-audio::-webkit-media-controls-play-button,
-.testimonial-audio::-webkit-media-controls-current-time-display,
-.testimonial-audio::-webkit-media-controls-time-remaining-display {
+.custom-audio-play-btn:active {
+    transform: scale(0.95);
+}
+
+.custom-audio-play-btn i {
+    font-size: 1.2rem;
+    transition: all 0.2s ease;
+}
+
+.custom-audio-play-btn.playing .play-icon {
+    display: none;
+}
+
+.custom-audio-play-btn.playing .pause-icon {
+    display: block !important;
+}
+
+.custom-audio-play-btn:not(.playing) .play-icon {
+    display: block;
+}
+
+.custom-audio-play-btn:not(.playing) .pause-icon {
+    display: none !important;
+}
+
+.custom-audio-progress-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.custom-audio-progress-bar {
+    position: relative;
+    width: 100%;
+    height: 4px;
+    background: rgba(74, 158, 255, 0.1);
+    border-radius: 20px;
+    cursor: pointer;
+    overflow: visible;
+    transition: all 0.3s ease;
+    margin: 8px 0;
+}
+
+.custom-audio-progress-bar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, 
+        rgba(74, 158, 255, 0.08) 0%, 
+        rgba(74, 158, 255, 0.12) 50%,
+        rgba(74, 158, 255, 0.08) 100%);
+    border-radius: 20px;
+    opacity: 0.6;
+}
+
+.custom-audio-progress-bar:hover {
+    height: 6px;
+}
+
+.custom-audio-progress-bar:hover::before {
+    opacity: 1;
+}
+
+.custom-audio-progress-filled {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, 
+        rgba(74, 158, 255, 1) 0%, 
+        rgba(0, 217, 255, 1) 50%,
+        rgba(74, 158, 255, 1) 100%);
+    border-radius: 20px;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 8px rgba(74, 158, 255, 0.8), 
+                0 0 16px rgba(0, 217, 255, 0.6);
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.custom-audio-progress-filled::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent 0%,
+        rgba(255, 255, 255, 0.4) 50%,
+        transparent 100%);
+    animation: progressShine 3s infinite;
+    border-radius: 20px;
+}
+
+@keyframes progressShine {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+.custom-audio-progress-handle {
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    width: 16px;
+    height: 16px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 1) 30%, rgba(74, 158, 255, 0.9) 70%, rgba(0, 217, 255, 1) 100%);
+    border: none;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 20px rgba(74, 158, 255, 1),
+                0 0 35px rgba(0, 217, 255, 0.7),
+                0 4px 10px rgba(0, 0, 0, 0.5),
+                inset 0 2px 4px rgba(255, 255, 255, 0.4);
+    cursor: grab;
+    z-index: 10;
+}
+
+.custom-audio-progress-handle:active {
+    cursor: grabbing;
+    transform: translate(-50%, -50%) scale(1.4);
+    box-shadow: 0 0 25px rgba(74, 158, 255, 1),
+                0 0 45px rgba(0, 217, 255, 0.9),
+                0 6px 15px rgba(0, 0, 0, 0.6),
+                inset 0 2px 4px rgba(255, 255, 255, 0.5);
+}
+
+.custom-audio-progress-bar:hover .custom-audio-progress-handle,
+.custom-audio-progress-bar.dragging .custom-audio-progress-handle {
+    opacity: 1;
+}
+
+.custom-audio-time {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    color: rgba(184, 197, 214, 0.8);
+    letter-spacing: 0.5px;
+}
+
+.custom-audio-current-time {
     color: var(--neon-cyan);
+    text-shadow: 0 0 8px rgba(0, 217, 255, 0.5);
 }
 
-.testimonial-audio::-webkit-media-controls-timeline {
-    background-color: rgba(74, 158, 255, 0.3);
-    border-radius: 2px;
+.custom-audio-duration {
+    color: rgba(184, 197, 214, 0.6);
 }
 
-.testimonial-audio::-webkit-media-controls-volume-slider {
-    background-color: rgba(74, 158, 255, 0.3);
+/* Responsive adjustments for custom audio player */
+@media (max-width: 768px) {
+    .custom-audio-player {
+        padding: 10px 12px;
+        gap: 0.75rem;
+    }
+    
+    .custom-audio-play-btn {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .custom-audio-play-btn i {
+        font-size: 1rem;
+    }
+    
+    .custom-audio-progress-bar {
+        height: 5px;
+    }
+    
+    .custom-audio-progress-bar:hover {
+        height: 6px;
+    }
+    
+    .custom-audio-progress-handle {
+        width: 12px;
+        height: 12px;
+    }
+    
+    .custom-audio-time {
+        font-size: 0.7rem;
+    }
+}
+
+/* Responsive adjustments for testimonial images */
+@media (max-width: 768px) {
+    .testimonial-image-wrapper {
+        padding-top: 100%; /* Square on mobile */
+    }
+    
+    .testimonial-image-name {
+        font-size: 1.25rem;
+    }
+    
+    .testimonial-audios-title {
+        font-size: 1.5rem;
+    }
+    
+    .testimonial-audio-card {
+        padding: 1.5rem;
+    }
+    
+    .testimonial-audio-icon {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .testimonial-audio-icon i {
+        font-size: 1.25rem;
+    }
+    
+    .testimonial-audio-name {
+        font-size: 1.1rem;
+    }
 }
 
 .testimonial-text {
@@ -1587,7 +1995,7 @@ h1, h2, h3, h4, h5, h6 {
    ======================================== */
 .contact-section {
     padding: 6rem 0;
-    background: rgba(15, 20, 25, 0.6);
+    background: linear-gradient(180deg, rgba(5, 7, 10, 0.85) 0%, rgba(6, 9, 13, 0.85) 30%, rgba(7, 11, 16, 0.85) 60%, rgba(8, 13, 19, 0.85) 100%);
     position: relative;
 }
 
@@ -1863,9 +2271,9 @@ h1, h2, h3, h4, h5, h6 {
    Footer
    ======================================== */
 .footer {
-    background: rgba(10, 15, 20, 0.9);
+    background: linear-gradient(180deg, rgba(8, 13, 19, 0.9) 0%, rgba(6, 10, 15, 0.9) 30%, rgba(5, 7, 9, 0.9) 60%, rgba(3, 4, 6, 0.95) 100%);
     color: var(--white);
-    border-top: 1px solid rgba(74, 158, 255, 0.2);
+    border-top: 1px solid rgba(74, 158, 255, 0.1);
     backdrop-filter: blur(10px);
 }
 
