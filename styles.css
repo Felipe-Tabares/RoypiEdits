@@ -106,7 +106,7 @@ body::after {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Space Grotesk', serif;
     font-weight: 600;
     line-height: 1.3;
 }
@@ -550,8 +550,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Líneas de rejilla en el hero */
 .hero-section::after {
-    content: '';
-    position: absolute;
+    content: none;
+    position: none;
     top: 0;
     left: 0;
     right: 0;
