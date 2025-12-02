@@ -74,32 +74,32 @@ const videoContainer = document.getElementById('videoContainer');
 const videoUrls = [
     'https://platform.twitter.com/embed/Tweet.html?id=1983673716090519606&theme=dark&dnt=true', // Twitter/X
     'https://www.youtube-nocookie.com/embed/rmR77SOYNDM?si=FuvNhdQYjP6fgCZH&autoplay=1&rel=0&modestbranding=1', // YouTube
-    'https://www.youtube-nocookie.com/embed/dKNuDwCpZN8?si=HKcDHzyhc--oi1_T&autoplay=1&rel=0&modestbranding=1', // YouTube
+    'https://www.youtube-nocookie.com/embed/hkpK7S0yK8o?si=O5Ae2ZbKa8dogkxY&autoplay=1&rel=0&modestbranding=1', // YouTube
     'https://www.youtube-nocookie.com/embed/Yq4tucwULhk?si=Ey3qhQId7mtDxWlG&autoplay=1&rel=0&modestbranding=1', // YouTube
     'https://www.youtube-nocookie.com/embed/3E8J3QnAAhI?si=aiYoWE57uqNQNpTI&autoplay=1&rel=0&modestbranding=1', // YouTube
-    'https://www.youtube-nocookie.com/embed/X9BiLvumAqo?si=0TbmSLMomCj-zECF&autoplay=1&rel=0&modestbranding=1'  // YouTube
+    'https://www.youtube-nocookie.com/embed/G_cjKNXubkY?si=V8gQBr1cY4pAqTJR&autoplay=1&rel=0&modestbranding=1'  // YouTube
 ];
 
 // Array con los IDs de YouTube para thumbnails
 const youtubeVideoIds = [
     null, // Twitter (no tiene YouTube ID)
     'rmR77SOYNDM',
-    'dKNuDwCpZN8',
+    'hkpK7S0yK8o',
     'Yq4tucwULhk',
     '3E8J3QnAAhI',
-    'X9BiLvumAqo'
+    'G_cjKNXubkY'
 ];
 
 // Array con URLs de thumbnails
 // Para YouTube: usar la API de thumbnails de YouTube
 // Para Twitter: usar una imagen placeholder (puedes reemplazarla con una imagen personalizada)
 const videoThumbnails = [
-    'img/miniaturas/David2.png', // Thumbnail para el video de Twitter
+    'img/miniaturas/david.png', // Thumbnail para el video de Twitter
     'https://img.youtube.com/vi/rmR77SOYNDM/maxresdefault.jpg',
-    'https://img.youtube.com/vi/dKNuDwCpZN8/maxresdefault.jpg',
+    'https://img.youtube.com/vi/hkpK7S0yK8o/maxresdefault.jpg',
     'https://img.youtube.com/vi/Yq4tucwULhk/maxresdefault.jpg',
     'https://img.youtube.com/vi/3E8J3QnAAhI/maxresdefault.jpg',
-    'https://img.youtube.com/vi/X9BiLvumAqo/maxresdefault.jpg'
+    'https://img.youtube.com/vi/G_cjKNXubkY/maxresdefault.jpg'
 ];
 
 // Fallback para thumbnails de YouTube si maxresdefault no está disponible
@@ -341,12 +341,12 @@ if (videoModalElement) {
 // Si quieres usar videos de YouTube, proporciona los links aquí
 // Formato: { video: 'url-del-video.mp4 o youtube-id', type: 'local' o 'youtube', thumbnail: 'url-thumbnail-opcional' }
 const reelVideos = [
-    { video: 'img/tiktok/vala 2.mp4', type: 'local' },
-    { video: 'img/tiktok/evelin.mp4', type: 'local' },
-    { video: 'img/tiktok/elita.mp4', type: 'local' },
-    { video: 'img/tiktok/cumbi.mp4', type: 'local' },
-    { video: 'img/tiktok/andylive.mp4', type: 'local' },
-    { video: 'img/tiktok/alemizzle.mp4', type: 'local' }
+    { video: 'https://reels-roypi.s3.us-east-1.amazonaws.com/videos-s3/evelin.mp4', type: 'local' },
+    { video: 'https://reels-roypi.s3.us-east-1.amazonaws.com/videos-s3/cumbi.mp4', type: 'local' },
+    { video: 'https://reels-roypi.s3.us-east-1.amazonaws.com/videos-s3/Elita+2.mp4', type: 'local' },
+    { video: 'https://reels-roypi.s3.us-east-1.amazonaws.com/videos-s3/Andylive+2.mp4', type: 'local' },
+    { video: 'https://reels-roypi.s3.us-east-1.amazonaws.com/videos-s3/vala+2.mp4', type: 'local' },
+    { video: 'https://reels-roypi.s3.us-east-1.amazonaws.com/videos-s3/zhock.mp4', type: 'local' }
 ];
 
 // Aplicar previews y eventos a las cards de reels
@@ -357,46 +357,77 @@ document.addEventListener('DOMContentLoaded', () => {
     const reelVideo = document.getElementById('reelVideo');
     const reelPreviewVideos = document.querySelectorAll('#portfolio-reels .reel-preview-video');
     
-    // Configurar los videos de previsualización para que se reproduzcan automáticamente
+    // Intersection Observer para autoplay en loop cuando el video está visible
+    const videoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const video = entry.target;
+            if (entry.isIntersecting) {
+                // Reproducir video automáticamente cuando es visible
+                video.play().catch(error => {
+                    console.log(`Autoplay bloqueado para video ${video.src}:`, error);
+                });
+            } else {
+                // Pausar cuando sale del viewport para ahorrar recursos
+                video.pause();
+            }
+        });
+    }, {
+        threshold: 0.5 // Reproducir cuando el 50% del video es visible
+    });
+
     reelPreviewVideos.forEach((previewVideo, index) => {
+        console.log(`Inicializando video ${index}:`, previewVideo.src);
+
+        // Observar cada video para autoplay cuando está visible
+        videoObserver.observe(previewVideo);
+
         // Manejar errores de carga
         previewVideo.addEventListener('error', (e) => {
-            console.warn(`Error al cargar video de reel ${index}:`, e);
-            // Mantener el fondo negro si hay error
-            const container = previewVideo.closest('.portfolio-image-reel');
-            if (container) {
-                container.style.backgroundColor = '#000';
-            }
+            console.error(`❌ Error al cargar video de reel ${index}:`, e);
+            console.error('Source:', previewVideo.src);
+            console.error('Error details:', previewVideo.error);
         });
-        
-        // Cuando el video está listo, intentar reproducir
+
+        // Log cuando el video comienza a cargar
+        previewVideo.addEventListener('loadstart', () => {
+            console.log(`📥 Cargando video ${index}...`);
+        });
+
+        // Asegurar que el video se reproduce cuando está listo
         previewVideo.addEventListener('loadeddata', () => {
-            previewVideo.play().catch(error => {
-                // Si falla el autoplay, el video se mostrará con el primer frame como thumbnail
-                console.log(`Autoplay bloqueado para preview de reel ${index}:`, error);
-            });
-        }, { once: true });
-        
-        // También intentar reproducir cuando los metadatos estén cargados
-        previewVideo.addEventListener('loadedmetadata', () => {
-            if (previewVideo.readyState >= 2) {
+            console.log(`✅ Video ${index} cargado, intentando reproducir...`);
+            // Intentar reproducir automáticamente
+            previewVideo.play()
+                .then(() => {
+                    console.log(`▶️ Video ${index} reproduciéndose!`);
+                })
+                .catch(error => {
+                    console.warn(`⚠️ Autoplay bloqueado para reel ${index}:`, error);
+                });
+        });
+
+        // También intentar cuando los metadatos están cargados
+        previewVideo.addEventListener('canplay', () => {
+            console.log(`🎬 Video ${index} listo para reproducir`);
+            if (previewVideo.paused) {
                 previewVideo.play().catch(() => {});
             }
-        }, { once: true });
-        
-        // Intentar reproducir automáticamente al cargar (puede fallar por políticas del navegador)
-        previewVideo.play().catch(error => {
-            // Si falla el autoplay, el video se mostrará con el primer frame como thumbnail
-            console.log(`Autoplay bloqueado para preview de reel ${index}:`, error);
         });
-        
-        // Reproducir cuando el usuario interactúa con la card (hover)
-        const card = previewVideo.closest('.portfolio-card');
-        if (card) {
-            card.addEventListener('mouseenter', () => {
-                previewVideo.play().catch(() => {});
-            });
-        }
+
+        // Log del estado del video
+        previewVideo.addEventListener('playing', () => {
+            console.log(`🎥 Video ${index} está reproduciéndose`);
+        });
+
+        previewVideo.addEventListener('pause', () => {
+            console.log(`⏸️ Video ${index} pausado`);
+        });
+
+        // Forzar carga del video inmediatamente
+        setTimeout(() => {
+            console.log(`🔄 Forzando carga de video ${index}`);
+            previewVideo.load();
+        }, 100 * index); // Escalonar la carga
     });
     
     if (reelModalElement && reelVideo) {
@@ -440,6 +471,42 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ========================================
+// Hero Video Modal Function
+// ========================================
+function openHeroVideoModal() {
+    const reelModalElement = document.getElementById('reelModal');
+    const reelVideo = document.getElementById('reelVideo');
+    const modalDialog = reelModalElement.querySelector('.modal-dialog');
+
+    if (reelModalElement && reelVideo && modalDialog) {
+        const reelModal = new bootstrap.Modal(reelModalElement);
+
+        // Agregar clase especial para video de portada (formato horizontal)
+        modalDialog.classList.add('hero-video-modal');
+
+        // Cargar el video de portada CON AUDIO (sin muted)
+        reelVideo.innerHTML = `<source src="https://reels-roypi.s3.us-east-1.amazonaws.com/videos-s3/portada.mp4" type="video/mp4">`;
+        reelVideo.muted = false; // Asegurar que el audio esté habilitado
+        reelVideo.load();
+
+        // Mostrar el modal y reproducir con audio
+        reelModal.show();
+        reelModalElement.addEventListener('shown.bs.modal', function playVideoWithSound() {
+            reelVideo.play().catch(error => {
+                console.log('Error al reproducir video:', error);
+            });
+            reelModalElement.removeEventListener('shown.bs.modal', playVideoWithSound);
+        }, { once: true });
+
+        // Remover la clase especial cuando se cierra el modal
+        reelModalElement.addEventListener('hidden.bs.modal', function removeHeroClass() {
+            modalDialog.classList.remove('hero-video-modal');
+            reelModalElement.removeEventListener('hidden.bs.modal', removeHeroClass);
+        }, { once: true });
+    }
+}
+
+// ========================================
 // Portfolio Thumbnail Modal
 // ========================================
 const thumbnailCards = document.querySelectorAll('#portfolio-miniaturas .portfolio-card');
@@ -449,10 +516,10 @@ const thumbnailFullImage = document.getElementById('thumbnailFullImage');
 // Array con las rutas de las imágenes de miniaturas
 const thumbnailImages = [
     'img/miniaturas/alemizzle 2.png',
-    'img/miniaturas/David2.png',
+    'img/miniaturas/evelin2.png',
     'img/miniaturas/Nicolenco.png',
     'img/miniaturas/Kilos.png',
-    'img/miniaturas/Alemizzle.png',
+    'img/miniaturas/GOLATAM.png',
     'img/miniaturas/CuchoRapido.png'
 ];
 

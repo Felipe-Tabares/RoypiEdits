@@ -118,10 +118,19 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="hero-video-container fade-in-delay-1">
-                        <div class="video-placeholder">
-                            <i class="bi bi-play-circle-fill"></i>
-                            <p data-i18n="hero.featuredVideo">Video Destacado</p>
-                        </div>
+                        <video class="hero-video"
+                               autoplay
+                               muted
+                               loop
+                               playsinline
+                               preload="auto"
+                               style="width: 100%; height: 100%; object-fit: cover; border-radius: 1rem; cursor: pointer; transition: transform 0.3s ease;"
+                               onmouseover="this.style.transform='scale(1.02)'"
+                               onmouseout="this.style.transform='scale(1)'"
+                               onclick="openHeroVideoModal()">
+                            <source src="https://reels-roypi.s3.us-east-1.amazonaws.com/videos-s3/portada.mp4" type="video/mp4">
+                            Tu navegador no soporta video HTML5.
+                        </video>
                     </div>
                 </div>
             </div>
@@ -233,11 +242,8 @@
                 <div class="row g-4 portfolio-grid mt-4">
                     <div class="col-md-6 col-lg-4 portfolio-item">
                         <div class="portfolio-card">
-                            <div class="portfolio-image" data-video-thumbnail="0">
-                                <div class="portfolio-category">
-                                    <i class="bi bi-lightning-charge"></i>
-                                    <span data-i18n="portfolio.category.professional">Estilo Profesional</span>
-                                </div>
+                            <div class="portfolio-image" data-video-thumbnail="0"
+                                style="background-image: url('img/miniaturas/david.png'); background-size: cover; background-position: center;">
                                 <div class="portfolio-overlay">
                                     <i class="bi bi-play-circle"></i>
                                     <p data-i18n="portfolio.watchVideo">Ver Video</p>
@@ -248,10 +254,6 @@
                     <div class="col-md-6 col-lg-4 portfolio-item">
                         <div class="portfolio-card">
                             <div class="portfolio-image" data-video-thumbnail="1">
-                                <div class="portfolio-category">
-                                    <i class="bi bi-star"></i>
-                                    <span data-i18n="portfolio.category.advanced3d">3D Avanzado</span>
-                                </div>
                                 <div class="portfolio-overlay">
                                     <i class="bi bi-play-circle"></i>
                                     <p data-i18n="portfolio.watchVideo">Ver Video</p>
@@ -262,10 +264,6 @@
                     <div class="col-md-6 col-lg-4 portfolio-item">
                         <div class="portfolio-card">
                             <div class="portfolio-image" data-video-thumbnail="2">
-                                <div class="portfolio-category">
-                                    <i class="bi bi-lightning-charge"></i>
-                                    <span data-i18n="portfolio.category.karmaland">KARMALAND</span>
-                                </div>
                                 <div class="portfolio-overlay">
                                     <i class="bi bi-play-circle"></i>
                                     <p data-i18n="portfolio.watchVideo">Ver Video</p>
@@ -276,10 +274,6 @@
                     <div class="col-md-6 col-lg-4 portfolio-item">
                         <div class="portfolio-card">
                             <div class="portfolio-image" data-video-thumbnail="3">
-                                <div class="portfolio-category">
-                                    <i class="bi bi-lightning-charge"></i>
-                                    <span data-i18n="portfolio.category.multicam">Multicámaras</span>
-                                </div>
                                 <div class="portfolio-overlay">
                                     <i class="bi bi-play-circle"></i>
                                     <p data-i18n="portfolio.watchVideo">Ver Video</p>
@@ -290,10 +284,6 @@
                     <div class="col-md-6 col-lg-4 portfolio-item">
                         <div class="portfolio-card">
                             <div class="portfolio-image" data-video-thumbnail="4">
-                                <div class="portfolio-category">
-                                    <i class="bi bi-lightning-charge"></i>
-                                    <span data-i18n="portfolio.category.professional">Estilo Profesional</span>
-                                </div>
                                 <div class="portfolio-overlay">
                                     <i class="bi bi-play-circle"></i>
                                     <p data-i18n="portfolio.watchVideo">Ver Video</p>
@@ -304,10 +294,6 @@
                     <div class="col-md-6 col-lg-4 portfolio-item">
                         <div class="portfolio-card">
                             <div class="portfolio-image" data-video-thumbnail="5">
-                                <div class="portfolio-category">
-                                    <i class="bi bi-lightning-charge"></i>
-                                    <span data-i18n="portfolio.category.professional">Estilo Profesional</span>
-                                </div>
                                 <div class="portfolio-overlay">
                                     <i class="bi bi-play-circle"></i>
                                     <p data-i18n="portfolio.watchVideo">Ver Video</p>
@@ -338,7 +324,7 @@
                         <div class="col-md-6 col-lg-4 portfolio-item">
                             <div class="portfolio-card">
                                 <div class="portfolio-image"
-                                    style="background-image: url('img/miniaturas/David2.png'); background-size: cover; background-position: center;">
+                                    style="background-image: url('img/miniaturas/evelin2.png'); background-size: cover; background-position: center;">
                                     <div class="portfolio-overlay">
                                         <i class="bi bi-zoom-in"></i>
                                         <p data-i18n="portfolio.viewFull">Ver Completo</p>
@@ -371,7 +357,7 @@
                         <div class="col-md-6 col-lg-4 portfolio-item">
                             <div class="portfolio-card">
                                 <div class="portfolio-image"
-                                    style="background-image: url('img/miniaturas/Alemizzle.png'); background-size: cover; background-position: center;">
+                                    style="background-image: url('img/miniaturas/GOLATAM.png'); background-size: cover; background-position: center;">
                                     <div class="portfolio-overlay">
                                         <i class="bi bi-zoom-in"></i>
                                         <p data-i18n="portfolio.viewFull">Ver Completo</p>
@@ -403,10 +389,15 @@
                         <div class="col-md-6 col-lg-4 portfolio-item">
                             <div class="portfolio-card portfolio-card-reel">
                                 <div class="portfolio-image portfolio-image-reel" data-reel-video="0">
-                                    <video class="reel-preview-video" muted loop playsinline autoplay
-                                        preload="metadata">
-                                        <source src="https://dvvbbrat3tqct.cloudfront.net/videos/alemizzle.mp4" type="video/mp4">
-                                        
+                                    <video class="reel-preview-video"
+                                        muted
+                                        loop
+                                        playsinline
+                                        autoplay
+                                        preload="auto"
+                                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 5; display: block !important; opacity: 1 !important; visibility: visible !important;">
+                                        <source src="https://reels-roypi.s3.us-east-1.amazonaws.com/videos-s3/evelin.mp4" type="video/mp4">
+                                        Tu navegador no soporta video HTML5.
                                     </video>
                                     <div class="portfolio-overlay">
                                         <i class="bi bi-play-circle"></i>
@@ -418,9 +409,14 @@
                         <div class="col-md-6 col-lg-4 portfolio-item">
                             <div class="portfolio-card portfolio-card-reel">
                                 <div class="portfolio-image portfolio-image-reel" data-reel-video="1">
-                                    <video class="reel-preview-video" muted loop playsinline autoplay
-                                        preload="metadata">
-                                        <source src="https://dvvbbrat3tqct.cloudfront.net/videos/evelin.mp4" type="video/mp4">
+                                    <video class="reel-preview-video"
+                                        muted
+                                        loop
+                                        playsinline
+                                        autoplay
+                                        preload="auto"
+                                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 5; display: block !important; opacity: 1 !important;">
+                                        <source src="https://reels-roypi.s3.us-east-1.amazonaws.com/videos-s3/cumbi.mp4" type="video/mp4">
                                     </video>
                                     <div class="portfolio-overlay">
                                         <i class="bi bi-play-circle"></i>
@@ -432,9 +428,14 @@
                         <div class="col-md-6 col-lg-4 portfolio-item">
                             <div class="portfolio-card portfolio-card-reel">
                                 <div class="portfolio-image portfolio-image-reel" data-reel-video="2">
-                                    <video class="reel-preview-video" muted loop playsinline autoplay
-                                        preload="metadata">
-                                        <source src="https://dvvbbrat3tqct.cloudfront.net/videos/elita.mp4" type="video/mp4">
+                                    <video class="reel-preview-video"
+                                        muted
+                                        loop
+                                        playsinline
+                                        autoplay
+                                        preload="auto"
+                                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 5; display: block !important; opacity: 1 !important;">
+                                        <source src="https://reels-roypi.s3.us-east-1.amazonaws.com/videos-s3/Elita+2.mp4" type="video/mp4">
                                     </video>
                                     <div class="portfolio-overlay">
                                         <i class="bi bi-play-circle"></i>
@@ -446,9 +447,14 @@
                         <div class="col-md-6 col-lg-4 portfolio-item">
                             <div class="portfolio-card portfolio-card-reel">
                                 <div class="portfolio-image portfolio-image-reel" data-reel-video="3">
-                                    <video class="reel-preview-video" muted loop playsinline autoplay
-                                        preload="metadata">
-                                        <source src="https://dvvbbrat3tqct.cloudfront.net/videos/cumbi.mp4" type="video/mp4">
+                                    <video class="reel-preview-video"
+                                        muted
+                                        loop
+                                        playsinline
+                                        autoplay
+                                        preload="auto"
+                                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 5; display: block !important; opacity: 1 !important;">
+                                        <source src="https://reels-roypi.s3.us-east-1.amazonaws.com/videos-s3/Andylive+2.mp4" type="video/mp4">
                                     </video>
                                     <div class="portfolio-overlay">
                                         <i class="bi bi-play-circle"></i>
@@ -460,9 +466,14 @@
                         <div class="col-md-6 col-lg-4 portfolio-item">
                             <div class="portfolio-card portfolio-card-reel">
                                 <div class="portfolio-image portfolio-image-reel" data-reel-video="4">
-                                    <video class="reel-preview-video" muted loop playsinline autoplay
-                                        preload="metadata">
-                                        <source src="https://dvvbbrat3tqct.cloudfront.net/videos/andylive.mp4" type="video/mp4">
+                                    <video class="reel-preview-video"
+                                        muted
+                                        loop
+                                        playsinline
+                                        autoplay
+                                        preload="auto"
+                                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 5; display: block !important; opacity: 1 !important;">
+                                        <source src="https://reels-roypi.s3.us-east-1.amazonaws.com/videos-s3/vala+2.mp4" type="video/mp4">
                                     </video>
                                     <div class="portfolio-overlay">
                                         <i class="bi bi-play-circle"></i>
@@ -474,9 +485,14 @@
                         <div class="col-md-6 col-lg-4 portfolio-item">
                             <div class="portfolio-card portfolio-card-reel">
                                 <div class="portfolio-image portfolio-image-reel" data-reel-video="5">
-                                    <video class="reel-preview-video" muted loop playsinline autoplay
-                                        preload="metadata">
-                                        <source src="https://dvvbbrat3tqct.cloudfront.net/videos/alemizzle.mp4" type="video/mp4">
+                                    <video class="reel-preview-video"
+                                        muted
+                                        loop
+                                        playsinline
+                                        autoplay
+                                        preload="auto"
+                                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 5; display: block !important; opacity: 1 !important;">
+                                        <source src="https://reels-roypi.s3.us-east-1.amazonaws.com/videos-s3/zhock.mp4" type="video/mp4">
                                     </video>
                                     <div class="portfolio-overlay">
                                         <i class="bi bi-play-circle"></i>
@@ -502,27 +518,15 @@
             <!-- Testimonial Images Section -->
             <div class="testimonial-images-section mb-5">
                 <div class="row g-4 justify-content-center">
-                    <div class="col-md-6 col-lg-5">
-                        <div class="testimonial-image-card">
-                            <div class="testimonial-image-wrapper">
-                                <img src="img/recomendaciones/recomendacion alemizzle.png" alt="Alemizzle"
-                                    class="testimonial-image">
-                                <div class="testimonial-image-overlay">
-                                    <div class="testimonial-image-name">Alemizzle</div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-md-6">
+                        <img src="img/recomendaciones/recomendacion alemizzle.png"
+                             alt="Recomendación Alemizzle"
+                             class="testimonial-image-simple">
                     </div>
-                    <div class="col-md-6 col-lg-5">
-                        <div class="testimonial-image-card">
-                            <div class="testimonial-image-wrapper">
-                                <img src="img/recomendaciones/recomendacion sayguz.png" alt="Sayguz"
-                                    class="testimonial-image">
-                                <div class="testimonial-image-overlay">
-                                    <div class="testimonial-image-name">Sayguz</div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-md-6">
+                        <img src="img/recomendaciones/recomendacion sayguz.png"
+                             alt="Recomendación Sayguz"
+                             class="testimonial-image-simple">
                     </div>
                 </div>
             </div>
@@ -537,9 +541,9 @@
                         <div class="testimonial-audio-card">
                             <div class="testimonial-audio-header">
                                 <div class="testimonial-audio-icon">
-                                    <i class="bi bi-mic-fill"></i>
+                                    <img src="img/img_audios/vala.jpg" alt="Vala">
                                 </div>
-                                <h5 class="testimonial-audio-name">Soy Vala</h5>
+                                <h3 class="testimonial-audio-name">Vala</h3>
                             </div>
                             <div class="testimonial-audio-container">
                                 <audio class="testimonial-audio" preload="metadata" data-audio-name="SOYVALA">
@@ -572,9 +576,9 @@
                         <div class="testimonial-audio-card">
                             <div class="testimonial-audio-header">
                                 <div class="testimonial-audio-icon">
-                                    <i class="bi bi-mic-fill"></i>
+                                    <img src="img/img_audios/leandro.jpg" alt="Leandro">
                                 </div>
-                                <h5 class="testimonial-audio-name">Leandro</h5>
+                                <h3 class="testimonial-audio-name">Leandro</h3>
                             </div>
                             <div class="testimonial-audio-container">
                                 <audio class="testimonial-audio" preload="metadata" data-audio-name="LEANDRO">
@@ -607,9 +611,9 @@
                         <div class="testimonial-audio-card">
                             <div class="testimonial-audio-header">
                                 <div class="testimonial-audio-icon">
-                                    <i class="bi bi-mic-fill"></i>
+                                    <img src="img/img_audios/evelin.jpg" alt="Evelin">
                                 </div>
-                                <h5 class="testimonial-audio-name">Evelin</h5>
+                                <h3 class="testimonial-audio-name">Evelin</h3>
                             </div>
                             <div class="testimonial-audio-container">
                                 <audio class="testimonial-audio" preload="metadata" data-audio-name="EVELIN">
@@ -642,9 +646,9 @@
                         <div class="testimonial-audio-card">
                             <div class="testimonial-audio-header">
                                 <div class="testimonial-audio-icon">
-                                    <i class="bi bi-mic-fill"></i>
+                                    <img src="img/img_audios/shark.jpg" alt="Shark">
                                 </div>
-                                <h5 class="testimonial-audio-name">El Shark</h5>
+                                <h3 class="testimonial-audio-name">Shark</h3>
                             </div>
                             <div class="testimonial-audio-container">
                                 <audio class="testimonial-audio" preload="metadata" data-audio-name="ELSHARK">
@@ -677,9 +681,9 @@
                         <div class="testimonial-audio-card">
                             <div class="testimonial-audio-header">
                                 <div class="testimonial-audio-icon">
-                                    <i class="bi bi-mic-fill"></i>
+                                    <img src="img/img_audios/andy.jpg" alt="Andy">
                                 </div>
-                                <h5 class="testimonial-audio-name">Andy Live</h5>
+                                <h3 class="testimonial-audio-name">Andy</h3>
                             </div>
                             <div class="testimonial-audio-container">
                                 <audio class="testimonial-audio" preload="metadata" data-audio-name="ANDYLIVE">
@@ -804,7 +808,6 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" data-i18n="modal.videoTitle">Reproducir Video</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body" style="padding: 0;">
@@ -826,7 +829,6 @@
         <div class="modal-dialog modal-dialog-centered modal-reel">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" data-i18n="modal.reelTitle">Reproducir Reel</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body" style="padding: 0;">
@@ -847,7 +849,6 @@
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" data-i18n="modal.thumbnailTitle">Miniatura Completa</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body text-center">
@@ -859,8 +860,6 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Constellations Background Effect -->
-    <script src="constellations.js"></script>
     <!-- Custom JS -->
     <script src="script.js"></script>
 </body>
