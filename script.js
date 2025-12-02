@@ -94,7 +94,7 @@ const youtubeVideoIds = [
 // Para YouTube: usar la API de thumbnails de YouTube
 // Para Twitter: usar una imagen placeholder (puedes reemplazarla con una imagen personalizada)
 const videoThumbnails = [
-    'img/miniaturas/David.png', // Thumbnail para el video de Twitter
+    'img/miniaturas/david2.png', // Thumbnail para el video de Twitter
     'https://img.youtube.com/vi/rmR77SOYNDM/maxresdefault.jpg',
     'https://img.youtube.com/vi/hkpK7S0yK8o/maxresdefault.jpg',
     'https://img.youtube.com/vi/Yq4tucwULhk/maxresdefault.jpg',
